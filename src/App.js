@@ -1,11 +1,29 @@
-import React from 'react'
-import Login from './Pages/Login'
-import SignUp from './Pages/SignUp'
+import React, { useEffect, useState } from 'react'
+import './App.css'
+import HomePage from './Routes/HomePage'
+import LoginSignup from './Routes/LoginSignup'
 
 const App = () => {
+  const [loading, setLoading] = useState (true)
+  const [JWTAuthentication, setJWTAuthentication] = useState(false)
+  useEffect(()=>{
+    setLoading(true)
+    // ----------API CALL------------
+    let API_Response = true
+    // ------------------------------
+    setJWTAuthentication(API_Response)
+    setLoading(false)
+    
+  },[])
   return (
-    <SignUp/>
+    // <SignUp/>
+    <>
+    {loading?null:JWTAuthentication?(<HomePage/>):(<LoginSignup/>)}
+    </>
     // <Login/>
+    // <HomePage/>
+    // <LoginSignup/>
+    
   )
 }
 
