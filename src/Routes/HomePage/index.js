@@ -3,9 +3,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SideBar from "../../Components/Sidebar/SideBar";
 import Dashboard from "../../Pages/abc/Dashboard";
 import MyProducts from "../../Pages/abc/MyProducts";
-import CreateCampaign from "../../Pages/abc/CreateCampaign";
 import Profile from "../../Pages/abc/Profile";
 import Guides from "../../Pages/abc/Guides";
+import CreateCampaign from "../../Pages/CreateCampaign";
 
 const HomePage = () => {
   return (
