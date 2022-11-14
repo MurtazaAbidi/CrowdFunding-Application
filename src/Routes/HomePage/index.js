@@ -1,14 +1,11 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SideBar from "../../Components/Sidebar/SideBar";
-import Analytics from "../../Pages/abc/Analytics";
 import Dashboard from "../../Pages/abc/Dashboard";
-import FileManager from "../../Pages/abc/FileManager";
-import Messages from "../../Pages/abc/Messages";
-import Order from "../../Pages/abc/Order";
-import Saved from "../../Pages/abc/Saved";
-import Setting from "../../Pages/abc/Setting";
-import Users from "../../Pages/abc/Users";
+import MyProducts from "../../Pages/abc/MyProducts";
+import CreateCampaign from "../../Pages/abc/CreateCampaign";
+import Profile from "../../Pages/abc/Profile";
+import Guides from "../../Pages/abc/Guides";
 
 const HomePage = () => {
   return (
@@ -16,14 +13,11 @@ const HomePage = () => {
       <SideBar>
         <Routes>
           <Route path="/" element={<Dashboard/>} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/messages" element={<Messages />} />
-          <Route path="/analytics" element={<Analytics />} />
-          <Route path="/file-manager" element={<FileManager />} />
-          <Route path="/order" element={<Order />} />
-          <Route path="/saved" element={<Saved />} />
-          <Route path="/settings" element={<Setting />} />
-          <Route path="*" element={<> not found</>} />
+          <Route path="/myproducts" element={<MyProducts />} />
+          <Route path="/createcampaign" element={<CreateCampaign />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/guides" element={<Guides />} />
+          <Route path="*" element={<h1> not found</h1>} />
         </Routes>
       </SideBar>
     </BrowserRouter>
