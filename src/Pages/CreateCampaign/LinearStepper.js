@@ -1,0 +1,654 @@
+import React, { useEffect, useState } from "react";
+import {
+  Typography,
+  TextField,
+  Button,
+  Stepper,
+  Step,
+  StepLabel,
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { GrAdd } from "react-icons/gr";
+
+import {
+  useForm,
+  FormProvider,
+  useFormContext,
+  Controller,
+} from "react-hook-form";
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    marginRight: theme.spacing(1),
+  },
+}));
+
+function getSteps() {
+  return [
+    "Basic information",
+    "Story",
+    "Budget",
+    "Add Pictures and Video",
+    "Campaign Investment Type",
+  ];
+}
+const BasicInformation = () => {
+  const { control } = useFormContext();
+  return (
+    <div style={{ margin: "auto", width: "80%", paddingLeft: "3rem" }}>
+      <div
+        style={{
+          paddingLeft: "1rem",
+          marginTop: "1rem",
+          fontWeight: 600,
+        }}
+      >
+        Campaign's Title:
+      </div>
+      <Controller
+        control={control}
+        name="title"
+        render={({ field }) => (
+          <TextField
+            id="title"
+            label="Title"
+            variant="outlined"
+            placeholder="Enter Your Campaign Title"
+            fullWidth
+            margin="normal"
+            required
+            {...field}
+          />
+        )}
+      />
+      <div
+        style={{
+          paddingLeft: "1rem",
+          marginTop: "1rem",
+          fontWeight: 600,
+        }}
+      >
+        Campaign's Sub-Title:
+      </div>
+      <Controller
+        control={control}
+        name="subtitle"
+        render={({ field }) => (
+          <TextField
+            id="subtitle"
+            label="Sub-Title"
+            variant="outlined"
+            placeholder="Enter Your Campaign Sub-Title"
+            fullWidth
+            margin="normal"
+            required
+            {...field}
+          />
+        )}
+      />
+    </div>
+  );
+};
+const Story = () => {
+  const { control } = useFormContext();
+  return (
+    <div style={{ margin: "auto", width: "80%", paddingLeft: "3rem" }}>
+      <div
+        style={{
+          paddingLeft: "1rem",
+          marginTop: "1rem",
+          fontWeight: 600,
+        }}
+      >
+        Project Description:
+      </div>
+      <Controller
+        control={control}
+        name="projectDescription"
+        render={({ field }) => (
+          <TextField
+            id="projectDescription"
+            label="Project Description "
+            variant="outlined"
+            placeholder="Enter Your Project Description"
+            fullWidth
+            margin="normal"
+            required
+            {...field}
+          />
+        )}
+      />
+      <div
+        style={{
+          paddingLeft: "1rem",
+          marginTop: "1rem",
+          fontWeight: 600,
+        }}
+      >
+        Risk and Challenges:
+      </div>
+      <Controller
+        control={control}
+        name="risk"
+        render={({ field }) => (
+          <TextField
+            id="risk"
+            label="Risk and Challenges"
+            variant="outlined"
+            placeholder="Enter Your Risk and Challenges"
+            fullWidth
+            margin="normal"
+            required
+            {...field}
+          />
+        )}
+      />
+    </div>
+  );
+};
+const Budget = () => {
+  const { control } = useFormContext();
+  return (
+    <div style={{ margin: "auto", width: "80%", paddingLeft: "3rem" }}>
+      <div
+        style={{
+          paddingLeft: "1rem",
+          marginTop: "1rem",
+          fontWeight: 600,
+        }}
+      >
+        Goal Amount:
+      </div>
+      <Controller
+        control={control}
+        name="goalAmount"
+        render={({ field }) => (
+          <TextField
+            id="goalAmount"
+            label="Goal Amount"
+            variant="outlined"
+            placeholder="Enter Your Goal Amount"
+            fullWidth
+            margin="normal"
+            type="number"
+            required
+            {...field}
+          />
+        )}
+      />
+    </div>
+  );
+};
+const AddPicturesAndVideo = () => {
+  const { control } = useFormContext();
+  return (
+    <div style={{ margin: "auto", width: "80%", paddingLeft: "3rem" }}>
+      <div
+        style={{
+          paddingLeft: "1rem",
+          marginTop: "1rem",
+          fontWeight: 600,
+        }}
+      >
+        Add Campaign's Image:
+      </div>
+      <Controller
+        control={control}
+        name="picture"
+        render={({ field }) => (
+          <TextField
+            id="picture"
+            // label="Add Picture"
+            accept="image/*"
+            type="file"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            required
+            {...field}
+          />
+        )}
+      />
+    </div>
+  );
+};
+const CampaignType = (props) => {
+  const { control } = useFormContext();
+  const {campType} = props;
+  return (
+    <>
+      
+
+  <div
+  style={{
+    margin: "auto",
+    width: "80%",
+    paddingLeft: "3rem",
+    marginTop: "2rem",
+  }}
+  >
+  {campType==="reward"?(<>
+        <div
+          style={{
+            paddingLeft: "1rem",
+            marginTop: "1rem",
+            fontWeight: 600,
+          }}
+          >
+          Reward Name:
+        </div>
+        <Controller
+          control={control}
+          name="rewardName"
+          render={({ field }) => (
+            <TextField
+            id="rewardName"
+            label="Reward Name"
+              variant="outlined"
+              placeholder="Enter the Reward Name"
+              fullWidth
+              margin="normal"
+              required
+              {...field}
+            />
+          )}
+        />
+        <div
+          style={{
+            paddingLeft: "1rem",
+            marginTop: "1rem",
+            fontWeight: 600,
+          }}
+        >
+          Donation Amount:
+        </div>
+        <Controller
+          control={control}
+          name="donationAmount"
+          render={({ field }) => (
+            <TextField
+              id="donationAmount"
+              label="Donation Amount"
+              variant="outlined"
+              placeholder="Enter the Donation Amount"
+              fullWidth
+              margin="normal"
+              type="number"
+              required
+              {...field}
+              />
+              )}
+              />
+        <div
+          style={{
+            paddingLeft: "1rem",
+            marginTop: "1rem",
+            fontWeight: 600,
+          }}
+          >
+          Reward Description:
+        </div>
+        <Controller
+          control={control}
+          name="rewardDescription"
+          render={({ field }) => (
+            <TextField
+            id="rewardDescription"
+            label="Reward Description"
+            variant="outlined"
+            placeholder="Enter the Reward Description"
+            fullWidth
+            margin="normal"
+            required
+            {...field}
+            />
+            )}
+            />
+           </> ):null}
+      </div>
+    </>
+  );
+};
+
+function getStepContent(step, campType = "") {
+  switch (step) {
+    case 0:
+      return <BasicInformation />;
+    case 1:
+      return <Story />;
+    case 2:
+      return <Budget />;
+    case 3:
+      return <AddPicturesAndVideo />;
+    case 4:
+      return <CampaignType campType={campType}/>;
+    default:
+      return "unknown step";
+  }
+}
+
+const LinaerStepper = () => {
+  const classes = useStyles();
+  const [overallData, setOverallData] = useState({})
+  const [activeStep, setActiveStep] = useState(0);
+  const [skippedSteps, setSkippedSteps] = useState([]);
+  const [campaignTypeArr, setCampaignTypeArr] = useState([]);
+  const [disableSubmitFlag, setDisableSubmitFlag] = useState(true);
+  const [campaignTypeCols, setCampaignTypeCols] = useState([]);
+  const [campType, setCampType] = useState("");
+  const steps = getSteps();
+  const methods = useForm({
+    defaultValues: {
+      title: "",
+      subtitle: "",
+      projectDescription: "",
+      risk: "",
+      goalAmount: "",
+      picture: "",
+    },
+  });
+  const campaignType = useForm();
+
+  const isStepOptional = (step) => {
+    // currently no step is optional
+    return step === -1;
+  };
+
+  const isStepSkipped = (step) => {
+    return skippedSteps.includes(step);
+  };
+
+  const hanldeCampaignTypeSubmit = (data) => {
+    console.log(data)
+    if (campaignTypeCols.length === 0) {
+      let temp = [];
+
+      for (const property in data) {
+        temp.push(property);
+      }
+      setCampaignTypeCols(temp);
+    }
+    let temp = [];
+    for (const property in data){
+      temp.push(data[property])
+    }
+    let campArr = [...campaignTypeArr]
+    // setCampaignTypeArr([])
+    campArr.push(temp)
+    setCampaignTypeArr(campArr)
+
+    console.log(campaignTypeArr)
+    // console.log(data)
+    // let campArr = campaignTypeArr;
+    // campArr.push(data);
+    // for (const property in data){
+    //   console.log(property, data[property])
+    //   temp.push(data[property])
+    // }
+    // campArr.push(temp)
+    // setCampaignTypeArr(campArr);
+    // console.log(campArr);
+    setDisableSubmitFlag(false);
+  };
+
+  const handleNext = (data) => {
+    setOverallData(data)
+    // }
+
+    setActiveStep(activeStep + 1);
+    setSkippedSteps(skippedSteps.filter((skipItem) => skipItem !== activeStep));
+  };
+
+  const handleBack = () => {
+    setActiveStep(activeStep - 1);
+  };
+
+  const handleSkip = () => {
+    if (!isStepSkipped(activeStep)) {
+      setSkippedSteps([...skippedSteps, activeStep]);
+    }
+    setActiveStep(activeStep + 1);
+  };
+
+  // const onSubmit = (data) => {
+  //   console.log(data);
+  // };
+  return (
+    <div>
+      <Stepper alternativeLabel activeStep={activeStep}>
+        {steps.map((step, index) => {
+          const labelProps = {};
+          const stepProps = {};
+          if (isStepOptional(index)) {
+            labelProps.optional = (
+              <Typography
+                variant="caption"
+                align="center"
+                style={{ display: "block" }}
+              >
+                optional
+              </Typography>
+            );
+          }
+          if (isStepSkipped(index)) {
+            stepProps.completed = false;
+          }
+          return (
+            <Step {...stepProps} key={index}>
+              <StepLabel {...labelProps}>{step}</StepLabel>
+            </Step>
+          );
+        })}
+      </Stepper>
+
+      {activeStep === steps.length ? (
+        <Typography variant="h3" align="center">
+          Thank You
+        </Typography>
+      ) : activeStep < steps.length - 1 ? (
+        <>
+          <h1 style={{ textAlign: "center" }}>{steps[activeStep]}</h1>
+          <FormProvider {...methods}>
+            <form onSubmit={methods.handleSubmit(handleNext)}>
+              {getStepContent(activeStep)}
+
+              <div style={{ textAlign: "center" }}>
+                <Button
+                  style={{ margin: "2rem" }}
+                  className={classes.button}
+                  disabled={activeStep === 0}
+                  onClick={handleBack}
+                >
+                  back
+                </Button>
+                {isStepOptional(activeStep) && (
+                  <Button
+                    style={{ margin: "2rem" }}
+                    className={classes.button}
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSkip}
+                  >
+                    skip
+                  </Button>
+                )}
+                <Button
+                  style={{ margin: "2rem", backgroundColor: "#003047" }}
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  // onClick={handleNext}
+                  type="submit"
+                >
+                  {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                </Button>
+              </div>
+            </form>
+          </FormProvider>
+        </>
+      ) : (
+        <>
+          <h1 style={{ textAlign: "center" }}>{steps[activeStep]}{campType!==""?(" ("+campType+" based) "):null}</h1>
+          {campaignTypeCols.length===0?(
+<>
+            <div style={{ paddingLeft: "1rem", marginBottom: 10, fontWeight: 600 }}>
+        Select Investment Type:
+      </div>
+      <div>
+        <label>
+          <input
+            style={{ marginLeft: "4rem" }}
+            type="radio"
+            value="reward"
+            name="campaigntype"
+            id="campaigntype"
+            onChange={()=>{setCampType("reward")}}
+            />{" "}
+          Reward Based
+        </label>
+
+        <label>
+          <input
+            style={{ marginLeft: "4rem" }}
+            type="radio"
+            value="profit"
+            name="campaigntype"
+            id="campaigntype"
+            onChange={()=>{setCampType("profit")}}
+            />{" "}
+          Profit Based
+        </label>
+
+        <label>
+          <input
+            style={{ marginLeft: "4rem" }}
+            type="radio"
+            value="equity"
+            name="campaigntype"
+            id="campaigntype"
+            onChange={()=>{setCampType("equity")}}
+            />{" "}
+          Equity Based
+        </label>
+
+        <label>
+          <input
+            style={{ marginLeft: "4rem" }}
+            type="radio"
+            value="donation"
+            name="campaigntype"
+            id="campaigntype"
+            onChange={()=>{setCampType("donation")}}
+            />{" "}
+          Donation Based
+        </label>
+      </div>
+      </>
+        ):null}
+          <FormProvider {...campaignType}>
+            <form
+              onSubmit={campaignType.handleSubmit(hanldeCampaignTypeSubmit)}
+              >
+              {getStepContent(activeStep, campType)}
+              {campType!==""?
+              (<div style={{ textAlign: "right", margin: "1rem" }}>
+                <Button
+                  type="submit"
+                  variant="outlined"
+                  color="primary"
+                  endIcon={<GrAdd />}
+                >
+                  Add another Reward
+                </Button>
+              </div>):null}
+            </form>
+          </FormProvider>
+         {disableSubmitFlag?null:
+         <table style={{margin:'auto'}}>
+            <thead >
+              <tr>
+                <th style={{ padding:'20px 50px', textAlign:'center', border:'1px solid', backgroundColor:'rgb(0, 48, 71)', color:'#fff'}}>#</th>
+                {campaignTypeCols.map((element, index) => {
+                  return <th style={{ padding:'20px 50px', textAlign:'center', border:'1px solid', backgroundColor:'rgb(0, 48, 71)', color:'#fff'}}>{element}</th>;
+                })}
+                <th style={{ padding:'20px 50px', textAlign:'center', border:'1px solid', backgroundColor:'rgb(0, 48, 71)', color:'#fff'}}>Action</th>
+                {/* <th>First Name</th>
+          <th>Last Name</th>
+          <th>Username</th> */}
+              </tr>
+            </thead>
+            <tbody style={{padding:5}}>
+              {campaignTypeArr.map((element, index)=>{
+                return (
+                  <tr key={index} >
+                    <td style={{ padding:'10x 50px', textAlign:"center", border:'1px solid'}}>{index+1+')'}</td>
+                    {element.map((ele)=>{
+                      return <td style={{ padding: '10px 50px', textAlign:"center", border:'1px solid'}}>{ele}</td>
+                    })}
+                    <td style={{ padding:'10x 50px',textAlign:"center", border:'1px solid'}}>
+                      <Button style={{color:'red', borderColor:'red'}} variant="outlined" color="error" onClick={()=>{
+                      let temp = [...campaignTypeArr]
+                      let camp = temp.filter((ele, ind)=>ind !== index)
+                      setCampaignTypeArr(camp)
+                    }}>Delete</Button>
+                    </td>
+                  </tr>
+                )
+              })}
+              
+            </tbody>
+          </table>
+        } 
+
+          <div style={{ textAlign: "center" }}>
+            <Button
+              style={{ margin: "2rem" }}
+              className={classes.button}
+              disabled={activeStep === 0}
+              onClick={handleBack}
+            >
+              back
+            </Button>
+            {isStepOptional(activeStep) && (
+              <Button
+                style={{ margin: "2rem" }}
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                onClick={handleSkip}
+              >
+                skip
+              </Button>
+            )}
+            <Button
+              style={{
+                margin: "2rem",
+                backgroundColor: disableSubmitFlag || campaignTypeArr.length===0 ? "#0001" : "#003047",
+                color: disableSubmitFlag || campaignTypeArr.length===0 ? "#0006" : "white",
+              }}
+              className={classes.button}
+              variant="contained"
+              color="primary"
+              // onClick={handleNext}
+              disabled={disableSubmitFlag || campaignTypeArr.length===0}
+              onClick={() => {
+                setActiveStep(activeStep + 1);
+                console.log(overallData)
+                let send_to_API = {...overallData, InvestmentType:campType, InvestmentTypeDetails:campaignTypeArr }
+                // let send_to_API = overallData
+                // send_to_API['InvestmentType']=c
+                // send_to_API['InvestmentTypeDetails']=campaignTypeArr
+                console.log(send_to_API);
+                setOverallData(send_to_API)
+              }}
+            >
+              {activeStep === steps.length - 1 ? "Finish" : "Next"}
+            </Button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
+export default LinaerStepper;
