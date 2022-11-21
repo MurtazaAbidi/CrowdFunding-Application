@@ -57,7 +57,7 @@ const ForgetPassword = () => {
             {JSON.stringify(formValues, undefined, 2)}
           </pre>
         )}
-        <div className="title" style={{ padding: 24 }}>
+        <div className="login-title" style={{ padding: 24 }}>
           Reset Password
         </div>
         <form onSubmit={handleSubmit}>

@@ -1,8 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { FaBars, FaHome } from "react-icons/fa";
-import {  MdCampaign } from "react-icons/md";
-import { BiSearch } from "react-icons/bi";
+import { MdCampaign } from "react-icons/md";
 import { BsCartCheck } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
 import { useState } from "react";
@@ -29,28 +28,11 @@ const routes = [
     name: "Profile",
     icon: <CgProfile />,
   },
-
 ];
 
 const SideBar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-  const inputAnimation = {
-    hidden: {
-      width: 0,
-      padding: 0,
-      transition: {
-        duration: 0.2,
-      },
-    },
-    show: {
-      width: "140px",
-      padding: "5px 15px",
-      transition: {
-        duration: 0.2,
-      },
-    },
-  };
 
   const showAnimation = {
     hidden: {
@@ -83,6 +65,7 @@ const SideBar = ({ children }) => {
             },
           }}
           className={`sidebar `}
+          style={isOpen ? null : { position: "fixed" }}
         >
           <div className="top_section">
             <AnimatePresence>
@@ -103,23 +86,7 @@ const SideBar = ({ children }) => {
               <FaBars onClick={toggle} />
             </div>
           </div>
-          <div className="search">
-            <div className="search_icon">
-              <BiSearch />
-            </div>
-            <AnimatePresence>
-              {isOpen && (
-                <motion.input
-                  initial="hidden"
-                  animate="show"
-                  exit="hidden"
-                  variants={inputAnimation}
-                  type="text"
-                  placeholder="Search"
-                />
-              )}
-            </AnimatePresence>
-          </div>
+
           <section className="routes">
             {routes.map((route, index) => {
               if (route.subRoutes) {
@@ -159,7 +126,16 @@ const SideBar = ({ children }) => {
             })}
           </section>
         </motion.div>
-        <main style={{width:"100%", paddingTop:'2rem', paddingBottom:'2rem'}}>{children}</main>
+        <main
+          style={{
+            width: "100%",
+            paddingTop: "2rem",
+            paddingBottom: "2rem",
+            minHeight: "33rem",
+          }}
+        >
+          {children}
+        </main>
       </div>
     </>
   );

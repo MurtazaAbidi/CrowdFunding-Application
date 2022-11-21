@@ -68,8 +68,7 @@ const Login = () => {
           </pre>
         )}
         <div className="login-logo"></div>
-        <div className="title">Log In</div>
-        {/* <div className = "sub-title">Made easy!</div> */}
+        <div className="login-title">Log In</div>
         <form onSubmit={handleSubmit}>
           <div className="fields">
             <p className="fields-error">{formErrors.email}</p>

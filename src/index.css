@@ -6,10 +6,9 @@
 }
 
 body {
-  background-image: url(./Assets/background.jpeg);
+  background-image: url(./Assets/Bg.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  
 }

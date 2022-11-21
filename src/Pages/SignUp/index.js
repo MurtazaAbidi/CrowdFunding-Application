@@ -125,7 +125,7 @@ const SignUp = () => {
             {JSON.stringify(formValues, undefined, 2)}
           </pre>
         )}
-        <div className="title" style={{ paddingTop: 12 }}>
+        <div className="login-title" style={{  padding:'1rem'}}>
           Sign Up
         </div>
         <form onSubmit={handleSubmit}>
@@ -261,7 +261,7 @@ const SignUp = () => {
               </div>
             </div>
           </div>
-          <button className="signin-button"> Sign Up</button>
+          <button className="signin-button" style={{marginBottom:'1rem'}}> Sign Up</button>
         </form>
       </div>
     </div>

@@ -42,7 +42,7 @@
 
 }
 
-.title {
+.login-title {
     text-align: center;
     font-size: 28px;
     padding-top: 24px;
@@ -59,7 +59,7 @@
 
 .fields {
     width: 100%;
-    padding: 20px 5px 5px 6px;
+    padding: 5px 5px 5px 6px;
 
 }
 

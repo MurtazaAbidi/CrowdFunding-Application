@@ -13,18 +13,9 @@ const App = () => {
     // ------------------------------
     setJWTAuthentication(API_Response)
     setLoading(false)
-    
   },[])
-  return (
-    // <SignUp/>
-    <>
-    {loading?null:JWTAuthentication?(<HomePage/>):(<LoginSignup/>)}
-    </>
-    // <Login/>
-    // <HomePage/>
-    // <LoginSignup/>
-    
-  )
+
+  return <>{loading?null:JWTAuthentication?(<HomePage/>):(<LoginSignup/>)}</>
 }
 
 export default App
