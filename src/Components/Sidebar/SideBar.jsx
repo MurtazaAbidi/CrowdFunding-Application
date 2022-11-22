@@ -65,7 +65,7 @@ const SideBar = ({ children }) => {
             },
           }}
           className={`sidebar `}
-          style={isOpen ? null : { position: "fixed" }}
+          style={{ position: "fixed" }}
         >
           <div className="top_section">
             <AnimatePresence>

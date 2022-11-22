@@ -7,7 +7,7 @@ const CreateCampaign = () => {
     <>
         <CssBaseline />
         <Container component={Box} p={4}>
-          <Paper component={Box} p={3}>
+          <Paper style={{background:'transparent'}} component={Box} p={3}>
             <LinearStepper />
           </Paper>
         </Container>

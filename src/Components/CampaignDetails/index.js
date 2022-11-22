@@ -38,7 +38,7 @@ function Modal({ setOpenModal, dataForModal }) {
           <button>Updates</button>
           <button style={{backgroundColor:'white', color:' cornflowerblue', border:'1px solid'}}>Investors</button>
           <button style={{backgroundColor:'white', color:' cornflowerblue', border:'1px solid'}}>Comments</button>
-            {dataForModal.hoursLeft<=30 && dataForModal.progress!==100?<><button style={{width:'15rem', backgroundColor:'crimson' }}>Time-Extend Request</button></>:null}
+            {dataForModal.hoursLeft<=30 && dataForModal.progress!==100?<><button style={{width:'17rem', backgroundColor:'crimson' }}>Time-Extend Request</button></>:null}
         </div>
       </div>
     </div>
