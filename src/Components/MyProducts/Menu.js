@@ -13,7 +13,7 @@ const Menu = ({ items, setModalOpen, setDataForModal }) => {
             <div style={{width:'30rem'}} className="item-info">
               <header>
                 <h4>{title}</h4>
-                <h4 className="price">Time Left: {hoursLeft}hr</h4>
+                <h4 className="price" style={{color:hoursLeft<=30 && progress!==100?'#DC3545':null}}>Time Left: {hoursLeft}hr</h4>
               </header>
               <p className="item-text">{desc}</p>
               <div style={{textAlign:'right', margin:'5px', }}><span style={{ padding:'5px 23px',borderRadius:30, color:'#4267B2', fontWeight:700}}>Likes: {like}</span></div>
