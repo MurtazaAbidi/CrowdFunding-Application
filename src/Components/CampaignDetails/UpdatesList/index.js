@@ -3,7 +3,7 @@ import React from "react";
 const Updates = () => {
   return (
     <>
-      <div
+      {/* <div
         style={{
           height: "14rem",
           width: "50rem",
@@ -190,6 +190,175 @@ const Updates = () => {
               </td>
             </tr>
           </tbody>
+        </table>
+      </div> */}
+
+
+
+
+
+<div style={{ fontSize:'2rem' , textAlign:'center', paddingBottom: "1rem" }}>
+          Updates 
+          {/* <span style={{fontWeight:700, textTransform:"capitalize"}}>{dataForModal.title} </span> */}
+          </div>
+          <div style={{ textAlign:'right',paddingRight: '2rem', marginBottom: '1rem'}}><span style={{border:'2px solid red', cursor:"pointer"}}>Add Update</span></div>
+      <div style={{overflowY: "scroll",}}>
+
+        <table style={{ margin: "auto" }}>
+          
+<tr id="header">
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Country</th>
+        </tr>
+        
+        <tr>
+            <td>John </td>
+            <td>Doe </td>
+            <td>25 </td>
+            <td>USA </td>
+            <td>Male </td>
+
+        </tr>
+        <tr>
+            <td>steve </td>
+            <td>Doe </td>
+            <td>28 </td>
+            <td>USA </td>
+            <td>Male </td>
+
+        </tr>
+        <tr>
+            <td>simo </td>
+            <td>Doe </td>
+            <td>26 </td>
+            <td>USA </td>
+            <td>Male </td>
+
+        </tr>
+        <tr>
+            <td>karim </td>
+            <td>Doe </td>
+            <td>21 </td>
+            <td>USA </td>
+            <td>Male </td>
+
+        </tr>
+        <tr>
+            <td>adam </td>
+            <td>Doe </td>
+            <td>20 </td>
+            <td>USA </td>
+            <td>Male </td>
+
+        </tr>
+        <tr>
+            <td>keven </td>
+            <td>Doe </td>
+            <td>20 </td>
+            <td>USA </td>
+            <td>Male </td>
+
+        </tr>
+        <tr>
+            <td>keven </td>
+            <td>Doe </td>
+            <td>20 </td>
+            <td>USA </td>
+            <td>Male </td>
+
+        </tr>
+        <tr>
+            <td>keven </td>
+            <td>Doe </td>
+            <td>20 </td>
+            <td>USA </td>
+            <td>Male </td>
+
+        </tr>
+        <tr>
+            <td>keven </td>
+            <td>Doe </td>
+            <td>20 </td>
+            <td>USA </td>
+            <td>Male </td>
+
+        </tr>
+        <tr>
+            <td>keven </td>
+            <td>Doe </td>
+            <td>20 </td>
+            <td>USA </td>
+            <td>Male </td>
+
+        </tr>
+        <tr>
+            <td>keven </td>
+            <td>Doe </td>
+            <td>20 </td>
+            <td>USA </td>
+            <td>Male </td>
+
+        </tr>
+        <tr>
+            <td>keven </td>
+            <td>Doe </td>
+            <td>20 </td>
+            <td>USA </td>
+            <td>Male </td>
+
+        </tr>
+        <tr>
+            <td>keven </td>
+            <td>Doe </td>
+            <td>20 </td>
+            <td>USA </td>
+            <td>Male </td>
+
+        </tr>
+        <tr>
+            <td>keven </td>
+            <td>Doe </td>
+            <td>20 </td>
+            <td>USA </td>
+            <td>Male </td>
+
+        </tr>
+        <tr>
+            <td>keven </td>
+            <td>Doe </td>
+            <td>20 </td>
+            <td>USA </td>
+            <td>Male </td>
+
+        </tr>
+        <tr>
+            <td>keven </td>
+            <td>Doe </td>
+            <td>20 </td>
+            <td>USA </td>
+            <td>Male </td>
+
+        </tr>
+        <tr>
+            <td>keven </td>
+            <td>Doe </td>
+            <td>20 </td>
+            <td>USA </td>
+            <td>Male </td>
+
+        </tr>
+        <tr>
+            <td>keven </td>
+            <td>Doe </td>
+            <td>20 </td>
+            <td>USA </td>
+            <td>Male </td>
+
+        </tr>
+
         </table>
       </div>
     </>

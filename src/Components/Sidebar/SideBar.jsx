@@ -130,8 +130,8 @@ const SideBar = ({ children }) => {
           style={{
             width: "100%",
             paddingTop: "2rem",
-            paddingBottom: "2rem",
-            minHeight: "33rem",
+            paddingBottom: "0.5rem",
+            // minHeight: "33rem",
           }}
         >
           {children}

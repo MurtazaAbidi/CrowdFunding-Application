@@ -18,6 +18,7 @@ const CommentForm = ({
     <form onSubmit={onSubmit} style={{display:'flex', alignItems:"center", justifyContent:"center"}}>
       <textarea
         className="comment-form-textarea"
+        style={{borderRadius:'3px'}}
         value={text}
         onChange={(e) => setText(e.target.value)}
       />

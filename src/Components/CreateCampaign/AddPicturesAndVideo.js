@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import {useFormContext, Controller} from "react-hook-form";
-import {TextField} from "@material-ui/core";
 
 const imageTypeRegex = /image\/(png|jpg|jpeg)/gm;
 
@@ -10,15 +8,18 @@ const AddPicturesAndVideo = ({images, setImages}) => {
   const changeHandler = (e) => {
     console.log(e.target.value)
     const { files } = e.target;
+    console.log(files)
     const validImageFiles = [];
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
+      console.log(file)
       if (file.type.match(imageTypeRegex)) {
         validImageFiles.push(file);
       }
     }
     if (validImageFiles.length) {
       setImageFiles(validImageFiles);
+      console.log(validImageFiles)
       return;
     }
     alert("Selected images are not of valid type!");

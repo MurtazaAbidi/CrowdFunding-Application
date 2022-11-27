@@ -9,7 +9,7 @@ const CampaignComments = () => {
       Comments
         </div> */}
           {/* <span style={{textDecoration:'underline'}}>Comments  </span> */}
-        <div className="body">
+        <div className="body" style={{position:'relative', bottom:'2rem', }}>
 
     
     <Comments

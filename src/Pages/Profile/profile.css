@@ -1,0 +1,122 @@
+.profile-wrapper {
+    width: 55rem;
+    min-height: 33rem;
+    display: flex;
+    box-shadow: 0 1px 20px 0 rgb(69 90 100 / 8%);
+    margin-left: 5rem;
+}
+
+
+.profile-wrapper .left {
+    width: 35%;
+    background: linear-gradient(to right, #00073d, #051595);
+    padding: 30px 25px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    text-align: center;
+    color: #fff;
+    
+}
+
+
+.profile-wrapper .left img {
+    border-radius: 5px;
+    margin-bottom: 10px;
+    -webkit-transition: .5s all;
+}
+
+
+.profile-wrapper .left p {
+    font-size: 12px;
+}
+
+
+.profile-wrapper .right {
+    width: 65%;
+    background: #fff;
+    padding: 30px 25px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.profile-wrapper .right .info,
+.profile-wrapper .right .projects {
+    margin-bottom: 25px;
+}
+
+.profile-wrapper .right .info h3,
+.profile-wrapper .right .projects h3 {
+    text-align: left;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e0e0e0;
+    color: #353c4e;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+}
+
+.profile-wrapper .right .info_data,
+.profile-wrapper .right .projects_data {
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-wrapper .right .info_data .data,
+.profile-wrapper .right .projects_data .data {
+    width: 45%;
+}
+
+.profile-wrapper .right .info_data .data h4,
+.profile-wrapper .right .projects_data .data h4 {
+    text-align: left;
+    color: #353c4e;
+    margin-bottom: 5px;
+}
+
+.profile-wrapper .right .info_data .data p,
+.profile-wrapper .right .projects_data .data p {
+    text-align: left;
+    font-size: 13px;
+    margin-bottom: 10px;
+    color: #919aa3;
+}
+
+
+.campaigner-profile-button {
+    background-color: #00073d;
+    padding: 0.75rem;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.campaigner-profile-button:hover {
+    text-decoration: underline;
+}
+
+.edit-image{
+    height:240px;
+    max-width: 17rem;
+    border:1px solid;
+    opacity: 0.6;
+    -webkit-transition: .5s all;
+}
+
+.edit-image:hover{
+    opacity: 1;
+    height:250px;
+    border:2px solid white;
+}
+
+.input-profile-data{
+    -webkit-transition: .5s all;
+    text-align: left;
+    font-size: 13px;
+    margin-bottom: 10px;
+    color: #919aa3;
+}
+
+.label-profile-image:hover> div{
+    display: none;
+}

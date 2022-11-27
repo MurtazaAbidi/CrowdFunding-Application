@@ -12,8 +12,21 @@ function Modal({ setOpenModal, dataForModal }) {
 
   return (
     <div style={{marginTop:'-2rem'}} className="modalBackground">
-      <div className="modalContainer">
-          {invertorsFlag === true ? (<InvestorsList />) : updateFlag === true ? (<Updates/>) : commentsFlag === true ? (<CampaignComments/>):(
+      <div className="modalContainer" style={{boxShadow:'#000000 0px 0px 40px 10px'}}>
+          {invertorsFlag === true ? (<InvestorsList dataForModal={dataForModal} />) : updateFlag === true ? (<Updates/>) : commentsFlag === true ? (
+          <>
+          <div className="titleCloseBtn">
+          <button
+            onClick={() => {
+              setCommentsFlag(false)
+            }}
+          >
+            X
+          </button>
+          </div>
+          <CampaignComments/>
+          </>
+          ): (
             <>
         <div className="titleCloseBtn">
           <button
@@ -52,12 +65,12 @@ function Modal({ setOpenModal, dataForModal }) {
           <button style={{backgroundColor:'white', color:' cornflowerblue', border:'1px solid'}} onClick={()=>{setCommentsFlag(true)}}>Comments</button>
             {dataForModal.hoursLeft<=30 && dataForModal.progress!==100?<><button style={{width:'17rem', backgroundColor:'crimson' }}>Time-Extend Request</button></>:null}
             </>
-            ):
+            ): (invertorsFlag === true || updateFlag=== true) ?
             <button style={{
               backgroundColor: "white",
               color:'cornflowerblue',
               border: "2px solid cornflowerblue",
-            }} onClick={()=>{setInvestorFlag(false); setUpdateFlag(false); setCommentsFlag(false)}}> BACK </button>
+            }} onClick={()=>{setInvestorFlag(false); setUpdateFlag(false); setCommentsFlag(false)}}> BACK </button>:null
             }
         </div>
       </div>

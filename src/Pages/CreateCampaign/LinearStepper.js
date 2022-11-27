@@ -158,7 +158,7 @@ const LinaerStepper = () => {
         </Typography>
       ) : activeStep < steps.length - 1 ? (
         <>
-          <h1 style={{ textAlign: "center" }}>{steps[activeStep]}</h1>
+          <h1 style={{ textAlign: "center", background:'linear-gradient(to right, #00073d, #051595)' }}>{steps[activeStep]}</h1>
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(handleNext)}>
               {activeStep===3 ? <AddPicturesAndVideo images={images} setImages={setImages}/>:
@@ -184,7 +184,13 @@ const LinaerStepper = () => {
                     skip
                   </Button>
                 )}
-                {images.length!==0 && activeStep===3 ?<Button
+                {images.length===0 && activeStep===3 ?<span style={{ margin: '1rem',
+                  backgroundColor: 'lightgrey',
+                  padding: '7px 13px',
+                  fontSize: 'initial',
+                  borderRadius: '8px',
+                  border: '1px solid grey',
+                  color: 'grey', }}> NEXT </span>:<Button
                   style={{ margin: "2rem", backgroundColor: "#003047" }}
                   className={classes.button}
                   variant="contained"
@@ -194,14 +200,8 @@ const LinaerStepper = () => {
                   type="submit"
                 >
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                </Button>:
-                <span style={{ margin: '1rem',
-                  backgroundColor: 'lightgrey',
-                  padding: '7px 13px',
-                  fontSize: 'initial',
-                  borderRadius: '8px',
-                  border: '1px solid grey',
-                  color: 'grey', }}> NEXT </span>}
+                </Button>
+                }
                   
               </div>
             </form>

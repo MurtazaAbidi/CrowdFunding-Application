@@ -61,7 +61,8 @@ const Comments = ({ currentUserId }) => {
     <div className="comments">
       <div className="comment-form-title">Write comment:</div>
       <CommentForm submitLabel="Write" handleSubmit={addComment} />
-      <div style={{height:'15rem', width:'50rem', textAlign:'center' ,padding:'1rem', margin:'2rem', border: '2px solid', boxShadow:'grey 20px 20px 20px 0px', overflowY:'scroll'}}>
+      <div style={{marginTop: '1rem', borderTop: '1px white',borderTopStyle: 'inset'}}/>
+      <div style={{backgroundColor:'aliceblue', height:'21rem', width:'50rem', textAlign:'center' ,padding:'2rem', margin:'1.25rem', border: '2px solid', boxShadow: 'grey 20px 20px 20px 0px, inset grey 0px 0px 2rem 0px', overflowY:'scroll'}}>
 
       <div className="comments-container">
         {rootComments.map((rootComment) => (
