@@ -1,0 +1,53 @@
+.add-update-form{
+    box-shadow: grey 20px 16px 10px;
+    border: 0.1px solid;
+    margin: auto;
+    width: 40rem;
+    height: 25rem;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding-left: 2rem;
+}
+
+.each-add-update{
+    padding-bottom: 0.5rem;
+}
+
+.input-label-update{
+    font-weight: 600;
+    display: block;
+    padding: 0.5rem 0;
+    font-size: 1.2rem;
+    text-decoration: underline;
+}
+
+.update-input-field{
+    height: 2rem;
+    padding-left: 1rem;
+    width: 35rem;
+}
+
+.update-inputtextarea-field{
+    padding-left: 1rem;
+    width: 35rem;
+    height: 4rem;
+    padding-top: 5px;
+    max-width: 36rem;
+    max-height: 5rem;
+}
+
+.update-submit-div{
+    text-align: center;
+    margin: 0.5rem 0;
+}
+
+.updates-button{
+    background-color: #00073d;
+    padding: 0.75rem;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}

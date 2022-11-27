@@ -2,13 +2,13 @@
 const menu = [
   {
     id: 1,
-    title: 'buttermilk pancakes',
-    category: 'reward based',
-    like: 16,
-    img: './images/item-1.jpeg',
-    desc: `I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed asdfasdf asdfasdf sadf asd fsadf xasd xfsad fsd afs adfsa df asdsa dfsda fas df asdf sadf asdf asdf sad fsda fsad fasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdf asdf asdfasd fsdafd asd fasdf asdfasdfasdf asdfasd fasd fasdf asd fasd fxasdf asdf asdfzI'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed asdfasdf asdfasdf sadf asd fsadf xasd xfsad fsd afs adfsa df asdsa dfsda fas df asdf sadf asdf asdf sad fsda fsad fasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdf asdf asdfasd fsdafd asd fasdf asdfasdfasdf asdfasd fasd fasdf asd fasd fxasdf asdf asdfzI'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed asdfasdf asdfasdf sadf asd fsadf xasd xfsad fsd afs adfsa df asdsa dfsda fas df asdf sadf asdf asdf sad fsda fsad fasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdf asdf asdfasd fsdafd asd fasdf asdfasdfasdf asdfasd fasd fasdf asd fasd fxasdf asdf asdfzI'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed asdfasdf asdfasdf sadf asd fsadf xasd xfsad fsd afs adfsa df asdsa dfsda fas df asdf sadf asdf asdf sad fsda fsad fasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdf asdf asdfasd fsdafd asd fasdf asdfasdfasdf asdfasd fasd fasdf asd fasd fxasdf asdf asdfzI'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed asdfasdf asdfasdf sadf asd fsadf xasd xfsad fsd afs adfsa df asdsa dfsda fas df asdf sadf asdf asdf sad fsda fsad fasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdf asdf asdfasd fsdafd asd fasdf asdfasdfasdf asdfasd fasd fasdf asd fasd fxasdf asdf asdfzI'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed asdfasdf asdfasdf sadf asd fsadf xasd xfsad fsd afs adfsa df asdsa dfsda fas df asdf sadf asdf asdf sad fsda fsad fasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdffasdf asdf asdfasd fsdafd asd fasdf asdfasdfasdf asdfasd fasd fasdf asd fasd fxasdf asdf asdfz `,
-    progress:20,
-    hoursLeft:113,
+    title: 'GaliGear',
+    category: 'profit based',
+    like: 51,
+    img: './images/campaign2.jpg',
+    desc: `An interactive learning tool that will encourage kids to explore their creativity and the wonderful world of science and engineering. Encouraging kids to Explore their Creativity and the Incredible World of Science and Engineering. At its core, GaliGear will be an electro-mechanical model of the earth, sun, and moon. More importantly, we envision GaliGear as being an interactive learning tool that will encourage kids to explore their creativity and the incredible world of science and engineering. Kids will learn how to use their hands to build and create, interpret drawings and assembly instructions, how the various disciplines of engineering work together to make something move and react, and how components such as gears and sensors work, all while having fun doing it!  We want GaliGear to engage kids, give them a sense of accomplishment, and show them that learning is fun and exciting. `,
+    progress:50,
+    hoursLeft:436,
   },
   {
     id: 2,

@@ -18,7 +18,7 @@ const Profile = () => {
   const [tempData, setTempData] = useState(ProfileValues)
 
   const handleSubmit = (e) => {
-    setProfileDetails({...profileDetails, name:e.target.name.value, email:e.target.email.value, phone: e.target.phone.value, cnic: e.target.cnic.value, officeAddress: e.target.officeAddress.value})
+    setProfileDetails({...profileDetails, name:e.target.name.value, phone: e.target.phone.value, cnic: e.target.cnic.value, officeAddress: e.target.officeAddress.value})
     console.log(e.target.name.value)
     console.log('abc')
     setEditProfile(false)
@@ -89,7 +89,7 @@ const Profile = () => {
             </>
           ) : (
             <img
-              style={{ height: 250 }}
+              style={{ height: 250, maxWidth: '17rem' }}
               src={profileDetails.profileImage}
               alt="Profile Picture"
             />
@@ -134,7 +134,8 @@ const Profile = () => {
                 </div>
                 <div className="data input-profile-data">
                   <h4>Email</h4>
-                  <input type="text" value={tempData.email} onChange={(e)=>{setTempData({...tempData, email:e.target.value})}} name="email" id="email" required/>
+                  {/* <input type="text" value={tempData.email} onChange={(e)=>{setTempData({...tempData, email:e.target.value})}} name="email" id="email" required/> */}
+                  <p>{tempData.email}</p>
                 </div>
 
               </div>

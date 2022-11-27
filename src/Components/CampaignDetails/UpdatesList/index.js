@@ -1,366 +1,96 @@
-import React from "react";
+import React, { useState } from "react";
+import UpdateData from "./UpdateData";
+import './update-styling.css';
 
-const Updates = () => {
+const today = new Date().toLocaleDateString();
+
+const Updates = ({ dataForModal }) => {
+  const [allUpdates, setAllUpdates] = useState(UpdateData)
+  const [addupdateData, setAddUpdateData] = useState(false);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    // console.log(e.target.title.value)
+    // console.log(e.target.desc.value)
+    // console.log(e.target.per.value)
+    setAllUpdates([...allUpdates, {title: e.target.title.value, description: e.target.desc.value, percent: e.target.per.value, Date: today}])
+    setAddUpdateData(false);
+  }
+
   return (
     <>
-      {/* <div
+      <div
+        style={{ fontSize: "2rem", textAlign: "center", paddingBottom: "1rem" }}
+      >
+        {addupdateData?<span>Add </span>:null}
+        Updates for{" "}
+        <span style={{ fontWeight: 900 }}>{dataForModal.title}</span>
+        {/* <span style={{fontWeight:700, textTransform:"capitalize"}}>{dataForModal.title} </span> */}
+      </div>
+      {addupdateData===false?(
+      <><div
         style={{
-          height: "14rem",
-          width: "50rem",
-          textAlign: "center",
-          padding: "1rem",
-          margin: "2rem",
-          border: "2px solid",
-          overflowY: "scroll",
+          textAlign: "right",
+          paddingRight: "2rem",
+          marginBottom: "1rem",
         }}
       >
-        <div style={{ paddingBottom: "1rem", textDecoration: "underline" }}>
-          Updates
-        </div>
+        <button
+          className="updates-button"
+          onClick={()=>{
+            setAddUpdateData(true);
+          }}
+        >
+          Add Update
+        </button>
+      </div>
+      <div style={{ overflowY: "scroll", minHeight: "17rem" }}>
         <table style={{ margin: "auto" }}>
-          <thead>
-            <tr>
-              <th
-                style={{
-                  border: "1px solid",
-                  textAlign: "center",
-                  padding: 5,
-                  width: "15rem",
-                }}
-              >
-                Col1
-              </th>
-              <th
-                style={{
-                  border: "1px solid",
-                  textAlign: "center",
-                  padding: 5,
-                  width: "15rem",
-                }}
-              >
-                Col2
-              </th>
-              <th
-                style={{
-                  border: "1px solid",
-                  textAlign: "center",
-                  padding: 5,
-                  width: "15rem",
-                }}
-              >
-                Col3
-              </th>
-              <th
-                style={{
-                  border: "1px solid",
-                  textAlign: "center",
-                  padding: 5,
-                  width: "15rem",
-                }}
-              >
-                Col4
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td
-                style={{
-                  border: "1px solid",
-                  textAlign: "center",
-                  padding: 5,
-                  width: "15rem",
-                }}
-              >
-                Data1
-              </td>
-              <td
-                style={{
-                  border: "1px solid",
-                  textAlign: "center",
-                  padding: 5,
-                  width: "15rem",
-                }}
-              >
-                Data2
-              </td>
-              <td
-                style={{
-                  border: "1px solid",
-                  textAlign: "center",
-                  padding: 5,
-                  width: "15rem",
-                }}
-              >
-                Data3
-              </td>
-              <td
-                style={{
-                  border: "1px solid",
-                  textAlign: "center",
-                  padding: 5,
-                  width: "15rem",
-                }}
-              >
-                Data4
-              </td>
-            </tr>
-            <tr>
-              <td
-                style={{
-                  border: "1px solid",
-                  textAlign: "center",
-                  padding: 5,
-                  width: "15rem",
-                }}
-              >
-                Data1
-              </td>
-              <td
-                style={{
-                  border: "1px solid",
-                  textAlign: "center",
-                  padding: 5,
-                  width: "15rem",
-                }}
-              >
-                Data2
-              </td>
-              <td
-                style={{
-                  border: "1px solid",
-                  textAlign: "center",
-                  padding: 5,
-                  width: "15rem",
-                }}
-              >
-                Data3
-              </td>
-              <td
-                style={{
-                  border: "1px solid",
-                  textAlign: "center",
-                  padding: 5,
-                  width: "15rem",
-                }}
-              >
-                Data4
-              </td>
-            </tr>
-            <tr>
-              <td
-                style={{
-                  border: "1px solid",
-                  textAlign: "center",
-                  padding: 5,
-                  width: "15rem",
-                }}
-              >
-                Data1
-              </td>
-              <td
-                style={{
-                  border: "1px solid",
-                  textAlign: "center",
-                  padding: 5,
-                  width: "15rem",
-                }}
-              >
-                Data2
-              </td>
-              <td
-                style={{
-                  border: "1px solid",
-                  textAlign: "center",
-                  padding: 5,
-                  width: "15rem",
-                }}
-              >
-                Data3
-              </td>
-              <td
-                style={{
-                  border: "1px solid",
-                  textAlign: "center",
-                  padding: 5,
-                  width: "15rem",
-                }}
-              >
-                Data4
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div> */}
+          <tr id="header">
+            <th>#</th>
+            <th>Update Title</th>
+            <th>Description</th>
+            <th>Progress</th>
+            <th>Date</th>
+          </tr>
 
-
-
-
-
-<div style={{ fontSize:'2rem' , textAlign:'center', paddingBottom: "1rem" }}>
-          Updates 
-          {/* <span style={{fontWeight:700, textTransform:"capitalize"}}>{dataForModal.title} </span> */}
-          </div>
-          <div style={{ textAlign:'right',paddingRight: '2rem', marginBottom: '1rem'}}><span style={{border:'2px solid red', cursor:"pointer"}}>Add Update</span></div>
-      <div style={{overflowY: "scroll",}}>
-
-        <table style={{ margin: "auto" }}>
-          
-<tr id="header">
-            <th>First name</th>
-            <th>Last name</th>
-            <th>Age</th>
-            <th>Gender</th>
-            <th>Country</th>
-        </tr>
-        
-        <tr>
-            <td>John </td>
-            <td>Doe </td>
-            <td>25 </td>
-            <td>USA </td>
-            <td>Male </td>
-
-        </tr>
-        <tr>
-            <td>steve </td>
-            <td>Doe </td>
-            <td>28 </td>
-            <td>USA </td>
-            <td>Male </td>
-
-        </tr>
-        <tr>
-            <td>simo </td>
-            <td>Doe </td>
-            <td>26 </td>
-            <td>USA </td>
-            <td>Male </td>
-
-        </tr>
-        <tr>
-            <td>karim </td>
-            <td>Doe </td>
-            <td>21 </td>
-            <td>USA </td>
-            <td>Male </td>
-
-        </tr>
-        <tr>
-            <td>adam </td>
-            <td>Doe </td>
-            <td>20 </td>
-            <td>USA </td>
-            <td>Male </td>
-
-        </tr>
-        <tr>
-            <td>keven </td>
-            <td>Doe </td>
-            <td>20 </td>
-            <td>USA </td>
-            <td>Male </td>
-
-        </tr>
-        <tr>
-            <td>keven </td>
-            <td>Doe </td>
-            <td>20 </td>
-            <td>USA </td>
-            <td>Male </td>
-
-        </tr>
-        <tr>
-            <td>keven </td>
-            <td>Doe </td>
-            <td>20 </td>
-            <td>USA </td>
-            <td>Male </td>
-
-        </tr>
-        <tr>
-            <td>keven </td>
-            <td>Doe </td>
-            <td>20 </td>
-            <td>USA </td>
-            <td>Male </td>
-
-        </tr>
-        <tr>
-            <td>keven </td>
-            <td>Doe </td>
-            <td>20 </td>
-            <td>USA </td>
-            <td>Male </td>
-
-        </tr>
-        <tr>
-            <td>keven </td>
-            <td>Doe </td>
-            <td>20 </td>
-            <td>USA </td>
-            <td>Male </td>
-
-        </tr>
-        <tr>
-            <td>keven </td>
-            <td>Doe </td>
-            <td>20 </td>
-            <td>USA </td>
-            <td>Male </td>
-
-        </tr>
-        <tr>
-            <td>keven </td>
-            <td>Doe </td>
-            <td>20 </td>
-            <td>USA </td>
-            <td>Male </td>
-
-        </tr>
-        <tr>
-            <td>keven </td>
-            <td>Doe </td>
-            <td>20 </td>
-            <td>USA </td>
-            <td>Male </td>
-
-        </tr>
-        <tr>
-            <td>keven </td>
-            <td>Doe </td>
-            <td>20 </td>
-            <td>USA </td>
-            <td>Male </td>
-
-        </tr>
-        <tr>
-            <td>keven </td>
-            <td>Doe </td>
-            <td>20 </td>
-            <td>USA </td>
-            <td>Male </td>
-
-        </tr>
-        <tr>
-            <td>keven </td>
-            <td>Doe </td>
-            <td>20 </td>
-            <td>USA </td>
-            <td>Male </td>
-
-        </tr>
-        <tr>
-            <td>keven </td>
-            <td>Doe </td>
-            <td>20 </td>
-            <td>USA </td>
-            <td>Male </td>
-
-        </tr>
-
+          {allUpdates.map((element, index) => {
+            return (
+              <tr>
+                <td>{index + 1} </td>
+                <td>{element.title} </td>
+                <td sytle={{ textAlign: "left" }}>{element.description} </td>
+                <td>{element.percent}% </td>
+                <td>{element.Date} </td>
+              </tr>
+            );
+          })}
         </table>
       </div>
+      </>):(
+        <div className="add-update-form" >
+        <form onSubmit={submitHandler}>
+          
+          <div className="each-add-update">
+          <label for="title" className="input-label-update">Update Title</label>
+          <input id="title" className="update-input-field" placeholder="Update Title" type="text" name="title" required/>
+          </div>
+          
+          <div className="each-add-update">
+          <label for="desc" className="input-label-update">Update Description</label>
+          <textarea id="desc" className="update-inputtextarea-field" placeholder="Update Description" type="text" name="desc" required/>
+          </div>
+          
+          <div className="each-add-update">
+          <label for="per" className="input-label-update">Update Progress Percentage</label>
+          <input id="per" className="update-input-field" placeholder="Update progress Percentage" type="number" name="per" min={dataForModal.progress} max="100" required/>
+          </div>
+          <div className="update-submit-div">
+        <button className="updates-button">Submit</button>
+          </div>
+        </form>
+        </div>
+      )}
     </>
   );
 };

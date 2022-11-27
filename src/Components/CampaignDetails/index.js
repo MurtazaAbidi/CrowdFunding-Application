@@ -13,7 +13,7 @@ function Modal({ setOpenModal, dataForModal }) {
   return (
     <div style={{marginTop:'-2rem'}} className="modalBackground">
       <div className="modalContainer" style={{boxShadow:'#000000 0px 0px 40px 10px'}}>
-          {invertorsFlag === true ? (<InvestorsList dataForModal={dataForModal} />) : updateFlag === true ? (<Updates/>) : commentsFlag === true ? (
+          {invertorsFlag === true ? (<InvestorsList dataForModal={dataForModal} />) : updateFlag === true ? (<Updates dataForModal={dataForModal}/>) : commentsFlag === true ? (
           <>
           <div className="titleCloseBtn">
           <button

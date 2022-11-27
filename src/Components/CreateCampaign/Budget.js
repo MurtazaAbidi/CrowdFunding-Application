@@ -27,6 +27,7 @@ const Budget = () => {
               fullWidth
               margin="normal"
               type="number"
+              
               required
               {...field}
             />
