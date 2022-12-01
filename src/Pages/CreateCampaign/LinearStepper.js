@@ -53,7 +53,7 @@ function getStepContent(step, campType = "") {
 const LinaerStepper = () => {
   const classes = useStyles();
   const [overallData, setOverallData] = useState({});
-  const [activeStep, setActiveStep] = useState(4);
+  const [activeStep, setActiveStep] = useState(0);
   const [skippedSteps, setSkippedSteps] = useState([]);
   const [campaignTypeArr, setCampaignTypeArr] = useState([]);
   const [disableSubmitFlag, setDisableSubmitFlag] = useState(true);

@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const initialValues = {
@@ -10,7 +12,7 @@ const SignUp = () => {
     CNIC: "",
     officeAddress: "",
   };
-  const [showCNIC, setShowCNIC] = useState("");
+  // const [showCNIC, setShowCNIC] = useState("");
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFromErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
@@ -46,32 +48,66 @@ const SignUp = () => {
     }
     setFormValues({ ...formValues, [name]: value });
 
-    if (name === "CNIC") {
-      let temp = "";
-      for (let i = 0; i < value.length; i++) {
-        temp += value[i];
-        if ((temp.length === 5) | (temp.length === 13)) {
-          temp += "-";
-        }
-      }
-      setShowCNIC(temp);
-      // console.log(formValues);
-    }
+    // if (name === "CNIC") {
+    //   let temp = "";
+    //   for (let i = 0; i < value.length; i++) {
+    //     temp += value[i];
+    //     if ((temp.length === 5) | (temp.length === 13)) {
+    //       temp += "-";
+    //     }
+    //   }
+    //   setShowCNIC(temp);
+    //   // console.log(formValues);
+    // }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setFromErrors(validate(formValues));
     setIsSubmit(true);
+    if (Object.keys(validate(formValues)).length === 0) {
+      axios
+        .post(
+          // body: JSON.stringify({
+          `http://localhost:3300/api/signup`,
+          {
+            name: formValues.name,
+            email: formValues.email,
+            password: formValues.password,
+            phone: formValues.phonenumber,
+            cnic: formValues.CNIC,
+            officeAddress: formValues.officeAddress
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          }
+        )
+        .then(function (response) {
+          console.log(response);
+          if (response.status === 200) {
+            alert(response.data);
+            setFormValues({});
+            // console.warn (response.data)
+          }
+        })
+        .catch(function (error) {
+          console.log(error.response.data.msg);
+          alert(error.response.data.msg);
+          setFormValues({...formValues, email:"", password:"", confirmpassword:""})
+        });
+    }
   };
 
-  useEffect(() => {
-    console.log(formErrors);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      // console.log(formValues);
-      alert("SignUp Done");
-    }
-  }, [formErrors, isSubmit]);
+  // useEffect(() => {
+  //   console.log(formErrors);
+  //   if (Object.keys(formErrors).length === 0 && isSubmit) {
+  //     // console.log(formValues);
+  //     // alert("SignUp Done");
+  //   }
+  // }, [formErrors, isSubmit]);
 
   const validate = (values) => {
     const errors = {};
@@ -116,7 +152,8 @@ const SignUp = () => {
           <pre
             style={{ color: "white", position: "absolute", left: 10, top: 10 }}
           >
-            Sign Up Done
+            {/* Sign Up Done */}
+            correct Validations
           </pre>
         ) : (
           <pre
@@ -125,11 +162,11 @@ const SignUp = () => {
             {JSON.stringify(formValues, undefined, 2)}
           </pre>
         )}
-        <div className="login-title" style={{  padding:'1rem'}}>
+        <div className="login-title" style={{padding:5}}>
           Sign Up
         </div>
         <form onSubmit={handleSubmit}>
-          <div style={{ overflowY: "scroll", maxHeight: 390 }}>
+          <div style={{ overflowY: "scroll", maxHeight:370 }}>
             <div className="fields">
               <p className="fields-error">{formErrors.name}</p>
               <div
@@ -223,7 +260,7 @@ const SignUp = () => {
                 />
               </div>
               <p className="fields-error">{formErrors.CNIC}</p>
-              <p>CNIC: {showCNIC}</p>
+              {/* <p>CNIC: {showCNIC}</p> */}
               <div
                 className="text-field"
                 style={{ border: formErrors.CNIC ? "1.5px solid red" : null }}
@@ -261,7 +298,13 @@ const SignUp = () => {
               </div>
             </div>
           </div>
-          <button className="signin-button" style={{marginBottom:'1rem'}}> Sign Up</button>
+          <button className="signin-button" style={{ margin: "1.25rem 0", height:'3rem' }}>
+            {" "}
+            Sign Up
+          </button>
+          <div className="linkk" style={{padding:0}}>
+          <Link to={"/login"}>Back</Link>
+          </div>
         </form>
       </div>
     </div>

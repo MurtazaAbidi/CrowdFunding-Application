@@ -80,7 +80,7 @@ const ForgetPassword = () => {
           <button className="signin-button"> Submit</button>
         </form>
         <div className="linkk">
-          <Link to={"/"}>Login?</Link>
+          <Link to={"/"}>Back</Link>
         </div>
       </div>
     </div>

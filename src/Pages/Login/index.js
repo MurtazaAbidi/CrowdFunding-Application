@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import "../index.css";
@@ -7,7 +8,7 @@ import "../index.css";
   ref="stylesheet"
 />;
 
-const Login = () => {
+const Login = ({ setJWTAuthentication }) => {
   const initialValues = { email: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFromErrors] = useState({});
@@ -24,14 +25,45 @@ const Login = () => {
     e.preventDefault();
     setFromErrors(validate(formValues));
     setIsSubmit(true);
+    if (Object.keys(validate(formValues)).length === 0) {
+      axios
+        .post(
+          // body: JSON.stringify({
+          `http://localhost:3300/api/login`,
+          {
+            email: formValues.email,
+            password: formValues.password,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            withCredentials:true,
+          }
+        )
+        .then(function (response) {
+          console.log(response);
+          if (response.status === 200) {
+            setJWTAuthentication(true);
+
+            // console.warn (response.data)
+          }
+        })
+        .catch(function (error) {
+          console.log(error.response.data.msg);
+          alert(error.response.data.msg)
+        });
+    }
+    // if (formValues.email==='admin@gmail.com' && formValues.password==='admin123') setJWTAuthentication(true)
   };
 
-  useEffect(() => {
-    console.log(formErrors);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      alert("Login validation Done");
-    }
-  }, [formErrors, isSubmit]);
+  // useEffect(() => {
+  //   console.log(formErrors);
+  //   if (Object.keys(formErrors).length === 0 && isSubmit) {
+  //     // alert("Login validation Done");
+  //   }
+  // }, [formErrors, isSubmit]);
 
   const validate = (values) => {
     const errors = {};
@@ -111,7 +143,7 @@ const Login = () => {
         <div className="linkk">
           <Link to={"/forgetpassword"}>Forgot Password?</Link>
           or
-          <Link to={"/signup"}>Sign Up</Link>
+            <Link to={"/signup"}>Sign Up</Link>
         </div>
       </div>
     </div>
