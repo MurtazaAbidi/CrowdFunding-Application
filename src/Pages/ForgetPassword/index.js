@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const ForgetPassword = () => {
@@ -11,22 +12,50 @@ const ForgetPassword = () => {
     const { name, value } = e.target;
     // const.log (name, value)
     setFormValues({ ...formValues, [name]: value });
-    console.log(formValues);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setFromErrors(validate(formValues));
     setIsSubmit(true);
+    console.log(formValues)
+    if (Object.keys(validate(formValues)).length === 0) {
+      axios
+        .post(
+          // body: JSON.stringify({
+          `http://localhost:3300/api/reset-password`,
+          {
+            email: formValues.email,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            withCredentials:true,
+          }
+        )
+        .then(function (response) {
+          console.log(response);
+          if (response.status === 200) {
+            alert(response.data)
+            // console.warn (response.data)
+          }
+        })
+        .catch(function (error) {
+          console.log(error.response.data.msg);
+          alert(error.response.data.msg)
+        });
+    }
   };
 
-  useEffect(() => {
-    console.log(formErrors);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      // console.log(formValues);
-      alert('forget Password Done')
-    }
-  }, [formErrors, isSubmit]);
+  // useEffect(() => {
+  //   console.log(formErrors);
+  //   if (Object.keys(formErrors).length === 0 && isSubmit) {
+  //     // console.log(formValues);
+  //     alert('forget Password Done')
+  //   }
+  // }, [formErrors, isSubmit]);
 
   const validate = (values) => {
     const errors = {};

@@ -6,7 +6,10 @@ import { BsCartCheck } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { BiLogOut } from "react-icons/bi";
 import SidebarMenu from "./SidebarMenu";
+import "./sidebarstyle.css";
+import axios from "axios";
 const routes = [
   {
     path: "/",
@@ -125,6 +128,43 @@ const SideBar = ({ children }) => {
               );
             })}
           </section>
+          <div
+            style={{ textAlign: "center", marginTop: "3rem", padding: "1rem" }}
+          >
+            {isOpen ? (
+              <button
+                className="sidebar-logout-btn"
+                onClick={() => {
+                  axios.get(
+                      `http://localhost:3300/api/logout`,
+                      {
+                        headers: {
+                          "Content-Type": "application/json",
+                          Accept: "application/json",
+                        },
+                        withCredentials: true,
+                      }
+                    )
+                    .then(function (response) {
+                      console.log(response);
+                      if (response.status === 200) {
+                        console.log(response);
+                        window.location.reload(false);
+                      }
+                    })
+                    .catch(function (error) {
+                      console.log(error.response.data.msg);
+                      alert(error.response.data.msg);
+                    });
+                }}
+              >
+                <span style={{ paddingRight: "1rem" }}>
+                  <BiLogOut />
+                </span>
+                Logout
+              </button>
+            ) : null}
+          </div>
         </motion.div>
         <main
           style={{

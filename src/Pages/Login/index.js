@@ -90,7 +90,7 @@ const Login = ({ setJWTAuthentication }) => {
           <pre
             style={{ color: "white", position: "absolute", left: 10, top: 10 }}
           >
-            Log In Successfully
+            Correct Validations
           </pre>
         ) : (
           <pre
