@@ -22,13 +22,14 @@ const Updates = ({ dataForModal }) => {
       <div
         style={{ fontSize: "2rem", textAlign: "center", paddingBottom: "1rem" }}
       >
-        {addupdateData?<span>Add </span>:null}
-        Updates for{" "}
+        {/* {addupdateData?<span>Add </span>:null} */}
+        Milestones for{" "}
         <span style={{ fontWeight: 900 }}>{dataForModal.title}</span>
         {/* <span style={{fontWeight:700, textTransform:"capitalize"}}>{dataForModal.title} </span> */}
       </div>
       {addupdateData===false?(
-      <><div
+      <>
+      {/* <div
         style={{
           textAlign: "right",
           paddingRight: "2rem",
@@ -43,12 +44,12 @@ const Updates = ({ dataForModal }) => {
         >
           Add Update
         </button>
-      </div>
+      </div> */}
       <div style={{ overflowY: "scroll", minHeight: "17rem" }}>
         <table style={{ margin: "auto" }}>
           <tr id="header">
             <th>#</th>
-            <th>Update Title</th>
+            <th>Milestone Title</th>
             <th>Description</th>
             <th>Progress</th>
             <th>Date</th>

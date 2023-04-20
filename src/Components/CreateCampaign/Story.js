@@ -31,7 +31,7 @@ const Story = () => {
           />
         )}
       />
-      <div
+      {/* <div
         style={{
           paddingLeft: "1rem",
           marginTop: "1rem",
@@ -55,7 +55,7 @@ const Story = () => {
             {...field}
           />
         )}
-      />
+      /> */}
     </div>
   );
 };

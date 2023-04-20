@@ -31,31 +31,7 @@ const BasicInformation = () => {
             />
           )}
         />
-        <div
-          style={{
-            paddingLeft: "1rem",
-            marginTop: "1rem",
-            fontWeight: 600,
-          }}
-        >
-          Campaign's Sub-Title:
-        </div>
-        <Controller
-          control={control}
-          name="subtitle"
-          render={({ field }) => (
-            <TextField
-              id="subtitle"
-              label="Sub-Title"
-              variant="outlined"
-              placeholder="Enter Your Campaign Sub-Title"
-              fullWidth
-              margin="normal"
-              required
-              {...field}
-            />
-          )}
-        />
+        
       </div>
     );
   };

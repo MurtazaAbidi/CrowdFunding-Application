@@ -5,6 +5,7 @@ import {
   Stepper,
   Step,
   StepLabel,
+  TextField,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { GrAdd } from "react-icons/gr";
@@ -16,6 +17,7 @@ import Story from "../../Components/CreateCampaign/Story";
 import Budget from "../../Components/CreateCampaign/Budget";
 import AddPicturesAndVideo from "../../Components/CreateCampaign/AddPicturesAndVideo";
 import CampaignInvestmentType from "../../Components/CreateCampaign/CampaignInvestmentType";
+import MilestonesDetails from "../../Components/CreateCampaign/MilestonesDetails";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -30,46 +32,50 @@ function getSteps() {
     "Story",
     "Budget",
     "Add Pictures and Video",
-    // "Campaign Investment Type",
+    "MileStones Detail",
+    "Campaign Investment Type",
   ];
 }
 
-function getStepContent(step, campType = "") {
-  switch (step) {
-    case 0:
-      return <BasicInformation />;
-    case 1:
-      return <Story />;
-    case 2:
-      return <Budget />;
-    case 3:
-      return <AddPicturesAndVideo />;
-    // case 4:
-    //   return <CampaignInvestmentType campType={campType} />;
-    default:
-      return "unknown step";
-  }
-}
 
-const LinaerStepper = () => {
+const LinaerStepper = (props) => {
+  const [milestonesData, setMilestonesData] = useState([])
+  const [noOfMilestones, setNoOfMilestones] = useState(1)
+  function getStepContent(step, campType = "") {
+    switch (step) {
+      case 0:
+        return <BasicInformation />;
+      case 1:
+        return <Story />;
+      case 2:
+        return <Budget />;
+      case 3:
+        return <AddPicturesAndVideo />;
+      case 4:
+        return <MilestonesDetails milestonesData={milestonesData} setMilestonesData={setMilestonesData} noOfMilestones={noOfMilestones} setNoOfMilestones={setNoOfMilestones} />;
+      case 5:
+        return <CampaignInvestmentType campType={campType} />;
+      default:
+        return "unknown step";
+    }
+  }
   const classes = useStyles();
-  const [overallData, setOverallData] = useState({});
+  const [overallData, setOverallData] = useState([]);
   const [activeStep, setActiveStep] = useState(0);
   const [skippedSteps, setSkippedSteps] = useState([]);
   const [campaignTypeArr, setCampaignTypeArr] = useState([]);
   const [disableSubmitFlag, setDisableSubmitFlag] = useState(true);
   const [campaignTypeCols, setCampaignTypeCols] = useState([]);
   const [campType, setCampType] = useState("");
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState(props.picture);
+  const [profitPercentage, setProfitPercentage] = useState(0);
   const steps = getSteps();
   const methods = useForm({
     defaultValues: {
-      title: "",
-      subtitle: "",
-      projectDescription: "",
-      risk: "",
-      goalAmount: "",
-      picture: "",
+      title: props.title,
+      projectDescription: props.projectDescription,
+      goalAmount: props.goalAmount,
+      picture: props.picture,
     },
   });
   const campaignType = useForm();
@@ -84,7 +90,11 @@ const LinaerStepper = () => {
   };
 
   const hanldeCampaignTypeSubmit = (data) => {
-    console.log(data);
+    for (let i in data) {
+      console.log(i, data[i]);
+      data[i] === undefined ? delete data[i] : console.log(data[i]);
+    }
+    console.log(data, "helooooooooooo");
     if (campaignTypeCols.length === 0) {
       let temp = [];
 
@@ -108,41 +118,17 @@ const LinaerStepper = () => {
 
   const handleNext = (data) => {
     setOverallData(data);
+    console.log(data, 'hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh')
+    props.setData(data)
     // }
 
     setActiveStep(activeStep + 1);
     setSkippedSteps(skippedSteps.filter((skipItem) => skipItem !== activeStep));
-    let sendtoapi = { ...data, picture: images[0] };
-    if (activeStep+1 > 3){
-      axios
-      .post(
-        // body: JSON.stringify({
-        `http://localhost:3300/api/createcampaign`,
-        sendtoapi,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          withCredentials: true,
-        }
-      )
-      .then(function (response) {
-        console.log(response);
-        if (response.status === 200) {
-          alert(response.data);
-        }
-      })
-      .catch(function (error) {
-        console.log(error.response.data.msg);
-        alert(error.response.data.msg);
-      });
-    }
-    };
-    
-    const handleBack = () => {
-      setActiveStep(activeStep - 1);
-    };
+  };
+
+  const handleBack = () => {
+    setActiveStep(activeStep - 1);
+  };
 
   const handleSkip = () => {
     if (!isStepSkipped(activeStep)) {
@@ -193,8 +179,7 @@ const LinaerStepper = () => {
         <Typography variant="h3" align="center">
           Thank You
         </Typography>
-      ) : // ) : activeStep < steps.length - 1 ? (
-      activeStep < steps.length ? (
+      ) : activeStep < steps.length - 1 ? (
         <>
           <h1
             style={{
@@ -232,7 +217,7 @@ const LinaerStepper = () => {
                     skip
                   </Button>
                 )}
-                {images.length === 0 && activeStep === 3 ? (
+                {(images.length === 0 && activeStep === 3) || (noOfMilestones <= 1 && activeStep === 4) ? (
                   <span
                     style={{
                       margin: "1rem",
@@ -264,283 +249,344 @@ const LinaerStepper = () => {
             </form>
           </FormProvider>
         </>
-      ) : null
-      // <>
-      //   <h1 style={{ textAlign: "center" }}>
-      //     {steps[activeStep]}
-      //     {campType !== "" ? " (" + campType + " based) " : null}
-      //   </h1>
-      //   {campaignTypeCols.length === 0 ? (
-      //     <>
-      //       <div
-      //         style={{
-      //           paddingTop: "2rem",
-      //           paddingLeft: "7rem",
-      //           marginBottom: "1rem",
-      //           fontWeight: 600,
-      //         }}
-      //       >
-      //         Select Investment Type:
-      //       </div>
-      //       <div style={{ paddingLeft: "6rem" }}>
-      //         <label>
-      //           <input
-      //             style={{ marginLeft: "4rem" }}
-      //             type="radio"
-      //             value="reward"
-      //             name="campaigntype"
-      //             id="campaigntype"
-      //             onChange={() => {
-      //               setCampType("reward");
-      //             }}
-      //           />{" "}
-      //           Reward Based
-      //         </label>
+      ) : (
+        <>
+          <h1 style={{ textAlign: "center" }}>
+            {steps[activeStep]}
+            {campType !== "" ? " (" + campType + " based) " : null}
+          </h1>
+          {campaignTypeCols.length === 0 ? (
+            <>
+              <div
+                style={{
+                  paddingTop: "2rem",
+                  paddingLeft: "7rem",
+                  marginBottom: "1rem",
+                  fontWeight: 600,
+                }}
+              >
+                Select Investment Type:
+              </div>
+              <div style={{ paddingLeft: "6rem" }}>
+                <label>
+                  <input
+                    style={{ marginLeft: "4rem" }}
+                    type="radio"
+                    value="reward"
+                    name="campaigntype"
+                    id="campaigntype"
+                    onChange={() => {
+                      setCampType("reward");
+                    }}
+                  />{" "}
+                  Reward Based
+                </label>
 
-      //         <label>
-      //           <input
-      //             style={{ marginLeft: "4rem" }}
-      //             type="radio"
-      //             value="profit"
-      //             name="campaigntype"
-      //             id="campaigntype"
-      //             onChange={() => {
-      //               setCampType("profit");
-      //             }}
-      //           />{" "}
-      //           Profit Based
-      //         </label>
+                <label>
+                  <input
+                    style={{ marginLeft: "4rem" }}
+                    type="radio"
+                    value="profit"
+                    name="campaigntype"
+                    id="campaigntype"
+                    onChange={() => {
+                      setCampType("profit");
+                    }}
+                  />{" "}
+                  Profit Based
+                </label>
 
-      //         <label>
-      //           <input
-      //             style={{ marginLeft: "4rem" }}
-      //             type="radio"
-      //             value="equity"
-      //             name="campaigntype"
-      //             id="campaigntype"
-      //             onChange={() => {
-      //               setCampType("equity");
-      //             }}
-      //           />{" "}
-      //           Equity Based
-      //         </label>
+                <label>
+                  <input
+                    style={{ marginLeft: "4rem" }}
+                    type="radio"
+                    value="equity"
+                    name="campaigntype"
+                    id="campaigntype"
+                    onChange={() => {
+                      setCampType("equity");
+                    }}
+                  />{" "}
+                  Equity Based
+                </label>
 
-      //         <label>
-      //           <input
-      //             style={{ marginLeft: "4rem" }}
-      //             type="radio"
-      //             value="donation"
-      //             name="campaigntype"
-      //             id="campaigntype"
-      //             onChange={() => {
-      //               setCampType("donation");
-      //             }}
-      //           />{" "}
-      //           Donation Based
-      //         </label>
-      //       </div>
-      //     </>
-      //   ) : null}
-      //   <FormProvider {...campaignType}>
-      //     <form
-      //       onSubmit={campaignType.handleSubmit(hanldeCampaignTypeSubmit)}
-      //     >
-      //       {getStepContent(activeStep, campType)}
-      //       {campType !== "" ? (
-      //         <div style={{ textAlign: "right", margin: "1rem" }}>
-      //           <Button
-      //             type="submit"
-      //             variant="outlined"
-      //             color="primary"
-      //             endIcon={<GrAdd />}
-      //           >
-      //             Add another Reward
-      //           </Button>
-      //         </div>
-      //       ) : null}
-      //     </form>
-      //   </FormProvider>
-      //   {disableSubmitFlag ? null : (
-      //     <table style={{ margin: "auto" }}>
-      //       <thead>
-      //         <tr>
-      //           <th
-      //             style={{
-      //               padding: "20px 50px",
-      //               textAlign: "center",
-      //               border: "1px solid",
-      //               backgroundColor: "rgb(0, 48, 71)",
-      //               color: "#fff",
-      //             }}
-      //           >
-      //             #
-      //           </th>
-      //           {campaignTypeCols.map((element, index) => {
-      //             return (
-      //               <th
-      //                 style={{
-      //                   padding: "20px 50px",
-      //                   textAlign: "center",
-      //                   border: "1px solid",
-      //                   backgroundColor: "rgb(0, 48, 71)",
-      //                   color: "#fff",
-      //                 }}
-      //               >
-      //                 {element}
-      //               </th>
-      //             );
-      //           })}
-      //           <th
-      //             style={{
-      //               padding: "20px 50px",
-      //               textAlign: "center",
-      //               border: "1px solid",
-      //               backgroundColor: "rgb(0, 48, 71)",
-      //               color: "#fff",
-      //             }}
-      //           >
-      //             Action
-      //           </th>
-      //           {/* <th>First Name</th>
-      //   <th>Last Name</th>
-      //   <th>Username</th> */}
-      //         </tr>
-      //       </thead>
-      //       <tbody style={{ padding: 5 }}>
-      //         {campaignTypeArr.map((element, index) => {
-      //           return (
-      //             <tr key={index}>
-      //               <td
-      //                 style={{
-      //                   padding: "10x 50px",
-      //                   textAlign: "center",
-      //                   border: "1px solid",
-      //                 }}
-      //               >
-      //                 {index + 1 + ")"}
-      //               </td>
-      //               {element.map((ele) => {
-      //                 return (
-      //                   <td
-      //                     style={{
-      //                       padding: "10px 50px",
-      //                       textAlign: "center",
-      //                       border: "1px solid",
-      //                     }}
-      //                   >
-      //                     {ele}
-      //                   </td>
-      //                 );
-      //               })}
-      //               <td
-      //                 style={{
-      //                   padding: "10x 50px",
-      //                   textAlign: "center",
-      //                   border: "1px solid",
-      //                 }}
-      //               >
-      //                 <Button
-      //                   style={{ color: "red", borderColor: "red" }}
-      //                   variant="outlined"
-      //                   color="error"
-      //                   onClick={() => {
-      //                     let temp = [...campaignTypeArr];
-      //                     let camp = temp.filter((ele, ind) => ind !== index);
-      //                     setCampaignTypeArr(camp);
-      //                   }}
-      //                 >
-      //                   Delete
-      //                 </Button>
-      //               </td>
-      //             </tr>
-      //           );
-      //         })}
-      //       </tbody>
-      //     </table>
-      //   )}
+                <label>
+                  <input
+                    style={{ marginLeft: "4rem" }}
+                    type="radio"
+                    value="donation"
+                    name="campaigntype"
+                    id="campaigntype"
+                    onChange={() => {
+                      setCampType("donation");
+                    }}
+                  />{" "}
+                  Donation Based
+                </label>
+              </div>
+            </>
+          ) : null}
+          <FormProvider {...campaignType}>
+            {campType !== "" &&
+              campType !== "profit" &&
+              campType !== "donation" ? (
+              <form
+                onSubmit={campaignType.handleSubmit(hanldeCampaignTypeSubmit)}
+              >
+                {getStepContent(activeStep, campType)}
+                <div style={{ textAlign: "right", margin: "1rem" }}>
+                  <Button
+                    type="submit"
+                    variant="outlined"
+                    color="primary"
+                    endIcon={<GrAdd />}
+                  >
+                    Add another Reward
+                  </Button>
+                </div>
+              </form>
+            ) : campType === "profit" ? (
+              <div
+                style={{
+                  margin: "auto",
+                  width: "80%",
+                  marginTop: "2rem",
+                }}
+              >
+                <div
+                  style={{
+                    paddingLeft: "1rem",
+                    marginTop: "1rem",
+                    fontWeight: 600,
+                  }}
+                >
+                  Profit Percentage:
+                </div>
+                <TextField
+                  id="profitPercentage"
+                  label="Profit Percentage"
+                  variant="outlined"
+                  placeholder="Enter the Profit Percentage"
+                  fullWidth
+                  margin="normal"
+                  type="number"
+                  value={profitPercentage}
+                  onChange={(e) => {
+                    setProfitPercentage(e.target.value);
+                  }}
+                  required
+                />
+              </div>
+            ) : null}
+          </FormProvider>
+          {disableSubmitFlag ? null : (
+            <table style={{ margin: "auto", height: "auto" }}>
+              <thead>
+                <tr>
+                  <th
+                    style={{
+                      padding: "20px 50px",
+                      textAlign: "center",
+                      border: "1px solid",
+                      backgroundColor: "rgb(0, 48, 71)",
+                      color: "#fff",
+                    }}
+                  >
+                    #
+                  </th>
+                  {campaignTypeCols.map((element, index) => {
+                    return (
+                      <>
+                        <th
+                          style={{
+                            padding: "20px 50px",
+                            textAlign: "center",
+                            border: "1px solid",
+                            backgroundColor: "rgb(0, 48, 71)",
+                            color: "#fff",
+                          }}
+                        >
+                          {element}
+                        </th>
+                      </>
+                    );
+                  })}
+                  <th
+                    style={{
+                      padding: "20px 50px",
+                      textAlign: "center",
+                      border: "1px solid",
+                      backgroundColor: "rgb(0, 48, 71)",
+                      color: "#fff",
+                    }}
+                  >
+                    Action
+                  </th>
+                  {/* <th>First Name</th>
+          <th>Last Name</th>
+          <th>Username</th> */}
+                </tr>
+              </thead>
+              <tbody style={{ padding: 5 }}>
+                {campaignTypeArr.map((element, index) => {
+                  return (
+                    <tr key={index}>
+                      <td
+                        style={{
+                          padding: "10x 50px",
+                          textAlign: "center",
+                          border: "1px solid",
+                        }}
+                      >
+                        {index + 1 + ")"}
+                      </td>
+                      {element.map((ele) => {
+                        return (
+                          <td
+                            style={{
+                              padding: "10px 50px",
+                              textAlign: "center",
+                              border: "1px solid",
+                            }}
+                          >
+                            {ele}
+                          </td>
+                        );
+                      })}
+                      <td
+                        style={{
+                          padding: "10x 50px",
+                          textAlign: "center",
+                          border: "1px solid",
+                        }}
+                      >
+                        <Button
+                          style={{ color: "red", borderColor: "red" }}
+                          variant="outlined"
+                          color="error"
+                          onClick={() => {
+                            let temp = [...campaignTypeArr];
+                            let camp = temp.filter((ele, ind) => ind !== index);
+                            setCampaignTypeArr(camp);
+                          }}
+                        >
+                          Delete
+                        </Button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
 
-      //   <div style={{ textAlign: "center" }}>
-      //     <Button
-      //       style={{ margin: "2rem" }}
-      //       className={classes.button}
-      //       disabled={activeStep === 0}
-      //       onClick={handleBack}
-      //     >
-      //       back
-      //     </Button>
-      //     {isStepOptional(activeStep) && (
-      //       <Button
-      //         style={{ margin: "2rem" }}
-      //         className={classes.button}
-      //         variant="contained"
-      //         color="primary"
-      //         onClick={handleSkip}
-      //       >
-      //         skip
-      //       </Button>
-      //     )}
-      //     <Button
-      //       style={{
-      //         margin: "2rem",
-      //         backgroundColor:
-      //           disableSubmitFlag || campaignTypeArr.length === 0
-      //             ? "#0001"
-      //             : "#003047",
-      //         color:
-      //           disableSubmitFlag || campaignTypeArr.length === 0
-      //             ? "#0006"
-      //             : "white",
-      //       }}
-      //       className={classes.button}
-      //       variant="contained"
-      //       color="primary"
-      //       // onClick={handleNext}
-      //       disabled={disableSubmitFlag || campaignTypeArr.length === 0}
-      //       onClick={() => {
-      //         setActiveStep(activeStep + 1);
-      //         console.log(overallData);
-      //         let send_to_API = {
-      //           ...overallData,
-      //           InvestmentType: campType,
-      //           InvestmentTypeDetails: campaignTypeArr,
-      //           picture: images,
-      //         };
-      //         // let send_to_API = overallData
-      //         // send_to_API['InvestmentType']=c
-      //         // send_to_API['InvestmentTypeDetails']=campaignTypeArr
-      //         console.log(send_to_API);
-      //         setOverallData(send_to_API);
+          <div style={{ textAlign: "center" }}>
+            <Button
+              style={{ margin: "2rem" }}
+              className={classes.button}
+              disabled={activeStep === 0}
+              onClick={handleBack}
+            >
+              back
+            </Button>
+            {isStepOptional(activeStep) && (
+              <Button
+                style={{ margin: "2rem" }}
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                onClick={handleSkip}
+              >
+                skip
+              </Button>
+            )}
+            <Button
+              style={{
+                margin: "2rem",
+                backgroundColor:
+                  ((campType === "profit") &
+                    (profitPercentage <= 0 || profitPercentage > 80) ||
+                    campType === "" ||
+                    campType === "reward" ||
+                    campType === "equity") &
+                    (disableSubmitFlag || campaignTypeArr.length === 0)
+                    ? "#0001"
+                    : "#003047",
+                color:
+                  ((campType === "profit") &
+                    (profitPercentage <= 0 || profitPercentage > 80) ||
+                    campType === "" ||
+                    campType === "reward" ||
+                    campType === "equity") &
+                    (disableSubmitFlag || campaignTypeArr.length === 0)
+                    ? "#0006"
+                    : "white",
+              }}
+              className={classes.button}
+              variant="contained"
+              color="primary"
+              // onClick={handleNext}
+              disabled={
+                (campType === "profit") &
+                (profitPercentage <= 0 || profitPercentage > 80) ||
+                (campType === "" ||
+                  campType === "reward" ||
+                  campType === "equity") &
+                (disableSubmitFlag || campaignTypeArr.length === 0)
+              }
+              onClick={() => {
+                setActiveStep(activeStep + 1);
 
-      //         axios
-      //           .post(
-      //             // body: JSON.stringify({
-      //             `http://localhost:3300/api/createcampaign`,
-      //             send_to_API,
-      //             {
-      //               headers: {
-      //                 "Content-Type": "application/json",
-      //                 Accept: "application/json",
-      //               },
-      //               withCredentials: true,
-      //             }
-      //           )
-      //           .then(function (response) {
-      //             console.log(response);
-      //             if (response.status === 200) {
-      //               alert(response.data);
-      //             }
-      //           })
-      //           .catch(function (error) {
-      //             console.log(error.response.data.msg);
-      //             alert(error.response.data.msg);
-      //           });
-      //       }}
-      //     >
-      //       {activeStep === steps.length - 1 ? "Finish" : "Next"}
-      //     </Button>
-      //   </div>
-      // </>
-      }
+                console.log(overallData);
+
+                let send_to_API = {
+                  ...overallData,
+                  milestonesData: milestonesData,
+                  InvestmentType: campType,
+                  InvestmentTypeDetails: campaignTypeArr,
+                  picture: images,
+                };
+                if (campType === "profit")
+                  send_to_API = {
+                    ...send_to_API,
+                    profitPercentage: profitPercentage,
+                  };
+                // let send_to_API = overallData
+                // send_to_API['InvestmentType']=c
+                // send_to_API['InvestmentTypeDetails']=campaignTypeArr
+                console.log(send_to_API);
+                setOverallData(send_to_API);
+                props.setData(send_to_API)
+                axios
+                  .post(
+                    // body: JSON.stringify({
+                    `${process.env.REACT_APP_API_URL}/api/createcampaign`,
+                    send_to_API,
+                    {
+                      headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                      },
+                      withCredentials: true,
+                    }
+                  )
+                  .then(function (response) {
+                    console.log(response);
+                    if (response.status === 200) {
+                      alert(response.data);
+                    }
+                  })
+                  .catch(function (error) {
+                    console.log(error.response.data.msg);
+                    alert(error.response.data.msg);
+                  });
+              }}
+            >
+              {activeStep === steps.length - 1 ? "Finish" : "Next"}
+            </Button>
+          </div>
+        </>
+      )}
     </div>
   );
 };
