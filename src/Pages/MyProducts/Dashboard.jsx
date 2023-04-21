@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Categories from "../../Components/MyProducts/Categories";
 import Menu from "../../Components/MyProducts/Menu";
 import items from "../../Components/MyProducts/dashboardData.js";
@@ -8,6 +8,9 @@ import Modal from "../../Components/CampaignDetails";
 const allCategories = ["all", ...new Set(items.map((item) => item.category))];
 
 const Dashboard = () => {
+  useEffect(()=>{
+    
+  })
   const [menuItems, setMenuItems] = useState(items);
   const [activeCategory, setActiveCategory] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
