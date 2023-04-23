@@ -5,7 +5,7 @@ import './update-styling.css';
 const today = new Date().toLocaleDateString();
 
 const Updates = ({ dataForModal }) => {
-  const [allUpdates, setAllUpdates] = useState(UpdateData)
+  const [allUpdates, setAllUpdates] = useState(dataForModal.milestones)
   const [addupdateData, setAddUpdateData] = useState(false);
 
   const submitHandler = (e) => {
@@ -55,17 +55,25 @@ const Updates = ({ dataForModal }) => {
             <th>Date</th>
           </tr>
 
-          {allUpdates.map((element, index) => {
+          {allUpdates.length?allUpdates.map((element, index) => {
             return (
-              <tr>
+              <tr key={element.milestone_id}>
                 <td>{index + 1} </td>
-                <td>{element.title} </td>
-                <td sytle={{ textAlign: "left" }}>{element.description} </td>
-                <td>{element.percent}% </td>
-                <td>{element.Date} </td>
+                <td>{element.milestone_title} </td>
+                <td sytle={{ textAlign: "left" }}>{element.milestone_desc} </td>
+                <td>{((index+1)*100/allUpdates.length).toFixed(2)}% </td>
+                <td>{element.milestone_date} </td>
               </tr>
             );
-          })}
+          }):
+          <tr>
+                <td>-</td>
+                <td>-</td>
+                <td sytle={{ textAlign: "left" }}>-</td>
+                <td>-</td>
+                <td>-</td>
+              </tr>
+          }
         </table>
       </div>
       </>):(

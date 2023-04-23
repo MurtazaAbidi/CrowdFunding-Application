@@ -50,7 +50,7 @@ const MyProducts = () => {
   };
   return (
     <>
-      {modalOpen && <Modal setOpenModal={setModalOpen} dataForModal={dataForModal} />}
+      {modalOpen && <Modal setOpenModal={setModalOpen} dataForModal={dataForModal} setDataForModal={setDataForModal} />}
       <div className="myProduct-body">
         <main>
           <section className="section">

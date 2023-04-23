@@ -1,14 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProgressBar from "../ProgressBar";
 import CampaignComments from "./CampaignComments";
 import InvestorsList from "./InvestorsList";
 import "./Modal.css";
 import Updates from "./UpdatesList";
+import Comments from "./CampaignComments/comments/Comments";
+import axios from "axios";
 
-function Modal({ setOpenModal, dataForModal }) {
+function Modal({ setOpenModal, dataForModal, setDataForModal }) {
   const [invertorsFlag, setInvestorFlag] = useState(false);
   const [updateFlag, setUpdateFlag] = useState(false);
   const [commentsFlag, setCommentsFlag] = useState(false);
+
+  useEffect(()=>{
+    axios.get(
+      // body: JSON.stringify({
+      `${process.env.REACT_APP_API_URL}/api/getcampaigndetails/${dataForModal.campaign_id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        withCredentials: true,
+      }
+    )
+    .then(function (response) {
+      console.log(response.data);
+      setDataForModal({...dataForModal, milestones: response.data.milestones, investors: response.data.investors , comments:response.data.comments})
+    })
+    .catch(function (error) {
+      console.log(error.response.data.msg);
+      alert(error.response.data.msg);
+    });
+  },[dataForModal.campaign_id])
 
   return (
     <div style={{marginTop:'-2rem'}} className="modalBackground">
@@ -24,7 +48,7 @@ function Modal({ setOpenModal, dataForModal }) {
             X
           </button>
           </div>
-          <CampaignComments/>
+          <CampaignComments dataForModal={dataForModal}/>
           </>
           ): (
             <>
@@ -63,7 +87,7 @@ function Modal({ setOpenModal, dataForModal }) {
           <button onClick={()=>{setUpdateFlag(true)}}>MileStones</button>
           <button style={{backgroundColor:'white', color:' cornflowerblue', border:'1px solid'}} onClick={()=>{setInvestorFlag(true)}}>Investors</button>
           <button style={{backgroundColor:'white', color:' cornflowerblue', border:'1px solid'}} onClick={()=>{setCommentsFlag(true)}}>Comments</button>
-            {dataForModal.hoursLeft<=30 && dataForModal.progress!==100?<><button style={{width:'17rem', backgroundColor:'crimson' }}>Time-Extend Request</button></>:null}
+            {dataForModal.days_left.days<=10 && dataForModal.progress!==100?<><button style={{width:'17rem', backgroundColor:'crimson' }}>Time-Extend Request</button></>:null}
             </>
             ): (invertorsFlag === true || updateFlag=== true) ?
             <button style={{
