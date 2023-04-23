@@ -5,6 +5,7 @@ import {
   Stepper,
   Step,
   StepLabel,
+  TextField,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { GrAdd } from "react-icons/gr";
@@ -16,6 +17,8 @@ import Story from "../../Components/CreateCampaign/Story";
 import Budget from "../../Components/CreateCampaign/Budget";
 import AddPicturesAndVideo from "../../Components/CreateCampaign/AddPicturesAndVideo";
 import CampaignInvestmentType from "../../Components/CreateCampaign/CampaignInvestmentType";
+import MilestonesDetails from "../../Components/CreateCampaign/MilestonesDetails";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -29,46 +32,50 @@ function getSteps() {
     "Story",
     "Budget",
     "Add Pictures and Video",
+    "MileStones Detail",
     "Campaign Investment Type",
   ];
 }
 
-function getStepContent(step, campType = "") {
-  switch (step) {
-    case 0:
-      return <BasicInformation />;
-    case 1:
-      return <Story />;
-    case 2:
-      return <Budget />;
-    case 3:
-      return <AddPicturesAndVideo />;
-    case 4:
-      return <CampaignInvestmentType campType={campType} />;
-    default:
-      return "unknown step";
-  }
-}
 
-const LinaerStepper = () => {
+const LinaerStepper = (props) => {
+  const [milestonesData, setMilestonesData] = useState([])
+  const [noOfMilestones, setNoOfMilestones] = useState(1)
+  function getStepContent(step, campType = "") {
+    switch (step) {
+      case 0:
+        return <BasicInformation />;
+      case 1:
+        return <Story />;
+      case 2:
+        return <Budget />;
+      case 3:
+        return <AddPicturesAndVideo />;
+      case 4:
+        return <MilestonesDetails milestonesData={milestonesData} setMilestonesData={setMilestonesData} noOfMilestones={noOfMilestones} setNoOfMilestones={setNoOfMilestones} />;
+      case 5:
+        return <CampaignInvestmentType campType={campType} />;
+      default:
+        return "unknown step";
+    }
+  }
   const classes = useStyles();
-  const [overallData, setOverallData] = useState({});
+  const [overallData, setOverallData] = useState([]);
   const [activeStep, setActiveStep] = useState(0);
   const [skippedSteps, setSkippedSteps] = useState([]);
   const [campaignTypeArr, setCampaignTypeArr] = useState([]);
   const [disableSubmitFlag, setDisableSubmitFlag] = useState(true);
   const [campaignTypeCols, setCampaignTypeCols] = useState([]);
   const [campType, setCampType] = useState("");
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState(props.picture);
+  const [profitPercentage, setProfitPercentage] = useState(0);
   const steps = getSteps();
   const methods = useForm({
     defaultValues: {
-      title: "",
-      subtitle: "",
-      projectDescription: "",
-      risk: "",
-      goalAmount: "",
-      picture: "",
+      title: props.title,
+      projectDescription: props.projectDescription,
+      goalAmount: props.goalAmount,
+      picture: props.picture,
     },
   });
   const campaignType = useForm();
@@ -83,7 +90,11 @@ const LinaerStepper = () => {
   };
 
   const hanldeCampaignTypeSubmit = (data) => {
-    console.log(data);
+    for (let i in data) {
+      console.log(i, data[i]);
+      data[i] === undefined ? delete data[i] : console.log(data[i]);
+    }
+    console.log(data, "helooooooooooo");
     if (campaignTypeCols.length === 0) {
       let temp = [];
 
@@ -107,6 +118,8 @@ const LinaerStepper = () => {
 
   const handleNext = (data) => {
     setOverallData(data);
+    console.log(data, 'hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh')
+    props.setData(data)
     // }
 
     setActiveStep(activeStep + 1);
@@ -125,8 +138,18 @@ const LinaerStepper = () => {
   };
 
   return (
-    <div style={{marginLeft:'8rem',minHeight:'34rem', backgroundColor:'hsl(210deg 36% 96% / 94%)'}}>
-      <Stepper style={{paddingLeft:'2rem', backgroundColor:'transparent'}} alternativeLabel activeStep={activeStep}>
+    <div
+      style={{
+        marginLeft: "8rem",
+        minHeight: "34rem",
+        backgroundColor: "hsl(210deg 36% 96% / 94%)",
+      }}
+    >
+      <Stepper
+        style={{ paddingLeft: "2rem", backgroundColor: "transparent" }}
+        alternativeLabel
+        activeStep={activeStep}
+      >
         {steps.map((step, index) => {
           const labelProps = {};
           const stepProps = {};
@@ -158,11 +181,21 @@ const LinaerStepper = () => {
         </Typography>
       ) : activeStep < steps.length - 1 ? (
         <>
-          <h1 style={{ textAlign: "center", background:'linear-gradient(to right, #00073d, #051595)' }}>{steps[activeStep]}</h1>
+          <h1
+            style={{
+              textAlign: "center",
+              background: "linear-gradient(to right, #00073d, #051595)",
+            }}
+          >
+            {steps[activeStep]}
+          </h1>
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(handleNext)}>
-              {activeStep===3 ? <AddPicturesAndVideo images={images} setImages={setImages}/>:
-              getStepContent(activeStep)}
+              {activeStep === 3 ? (
+                <AddPicturesAndVideo images={images} setImages={setImages} />
+              ) : (
+                getStepContent(activeStep)
+              )}
 
               <div style={{ textAlign: "center" }}>
                 <Button
@@ -184,25 +217,34 @@ const LinaerStepper = () => {
                     skip
                   </Button>
                 )}
-                {images.length===0 && activeStep===3 ?<span style={{ margin: '1rem',
-                  backgroundColor: 'lightgrey',
-                  padding: '7px 13px',
-                  fontSize: 'initial',
-                  borderRadius: '8px',
-                  border: '1px solid grey',
-                  color: 'grey', }}> NEXT </span>:<Button
-                  style={{ margin: "2rem", backgroundColor: "#003047" }}
-                  className={classes.button}
-                  variant="contained"
-                  color="primary"
-                  // disable={true}
-                  // onClick={handleNext}
-                  type="submit"
-                >
-                  {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                </Button>
-                }
-                  
+                {(images.length === 0 && activeStep === 3) || (noOfMilestones <= 1 && activeStep === 4) ? (
+                  <span
+                    style={{
+                      margin: "1rem",
+                      backgroundColor: "lightgrey",
+                      padding: "7px 13px",
+                      fontSize: "initial",
+                      borderRadius: "8px",
+                      border: "1px solid grey",
+                      color: "grey",
+                    }}
+                  >
+                    {" "}
+                    NEXT{" "}
+                  </span>
+                ) : (
+                  <Button
+                    style={{ margin: "2rem", backgroundColor: "#003047" }}
+                    className={classes.button}
+                    variant="contained"
+                    color="primary"
+                    // disable={true}
+                    // onClick={handleNext}
+                    type="submit"
+                  >
+                    {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                  </Button>
+                )}
               </div>
             </form>
           </FormProvider>
@@ -217,15 +259,15 @@ const LinaerStepper = () => {
             <>
               <div
                 style={{
-                  paddingTop:'2rem', 
+                  paddingTop: "2rem",
                   paddingLeft: "7rem",
-                  marginBottom: '1rem',
+                  marginBottom: "1rem",
                   fontWeight: 600,
                 }}
               >
                 Select Investment Type:
               </div>
-              <div style={{paddingLeft:'6rem'}}>
+              <div style={{ paddingLeft: "6rem" }}>
                 <label>
                   <input
                     style={{ marginLeft: "4rem" }}
@@ -285,11 +327,13 @@ const LinaerStepper = () => {
             </>
           ) : null}
           <FormProvider {...campaignType}>
-            <form
-              onSubmit={campaignType.handleSubmit(hanldeCampaignTypeSubmit)}
-            >
-              {getStepContent(activeStep, campType)}
-              {campType !== "" ? (
+            {campType !== "" &&
+              campType !== "profit" &&
+              campType !== "donation" ? (
+              <form
+                onSubmit={campaignType.handleSubmit(hanldeCampaignTypeSubmit)}
+              >
+                {getStepContent(activeStep, campType)}
                 <div style={{ textAlign: "right", margin: "1rem" }}>
                   <Button
                     type="submit"
@@ -300,11 +344,43 @@ const LinaerStepper = () => {
                     Add another Reward
                   </Button>
                 </div>
-              ) : null}
-            </form>
+              </form>
+            ) : campType === "profit" ? (
+              <div
+                style={{
+                  margin: "auto",
+                  width: "80%",
+                  marginTop: "2rem",
+                }}
+              >
+                <div
+                  style={{
+                    paddingLeft: "1rem",
+                    marginTop: "1rem",
+                    fontWeight: 600,
+                  }}
+                >
+                  Profit Percentage:
+                </div>
+                <TextField
+                  id="profitPercentage"
+                  label="Profit Percentage"
+                  variant="outlined"
+                  placeholder="Enter the Profit Percentage"
+                  fullWidth
+                  margin="normal"
+                  type="number"
+                  value={profitPercentage}
+                  onChange={(e) => {
+                    setProfitPercentage(e.target.value);
+                  }}
+                  required
+                />
+              </div>
+            ) : null}
           </FormProvider>
           {disableSubmitFlag ? null : (
-            <table style={{ margin: "auto" }}>
+            <table style={{ margin: "auto", height: "auto" }}>
               <thead>
                 <tr>
                   <th
@@ -320,17 +396,19 @@ const LinaerStepper = () => {
                   </th>
                   {campaignTypeCols.map((element, index) => {
                     return (
-                      <th
-                        style={{
-                          padding: "20px 50px",
-                          textAlign: "center",
-                          border: "1px solid",
-                          backgroundColor: "rgb(0, 48, 71)",
-                          color: "#fff",
-                        }}
-                      >
-                        {element}
-                      </th>
+                      <>
+                        <th
+                          style={{
+                            padding: "20px 50px",
+                            textAlign: "center",
+                            border: "1px solid",
+                            backgroundColor: "rgb(0, 48, 71)",
+                            color: "#fff",
+                          }}
+                        >
+                          {element}
+                        </th>
+                      </>
                     );
                   })}
                   <th
@@ -426,11 +504,21 @@ const LinaerStepper = () => {
               style={{
                 margin: "2rem",
                 backgroundColor:
-                  disableSubmitFlag || campaignTypeArr.length === 0
+                  ((campType === "profit") &
+                    (profitPercentage <= 0 || profitPercentage > 80) ||
+                    campType === "" ||
+                    campType === "reward" ||
+                    campType === "equity") &
+                    (disableSubmitFlag || campaignTypeArr.length === 0)
                     ? "#0001"
                     : "#003047",
                 color:
-                  disableSubmitFlag || campaignTypeArr.length === 0
+                  ((campType === "profit") &
+                    (profitPercentage <= 0 || profitPercentage > 80) ||
+                    campType === "" ||
+                    campType === "reward" ||
+                    campType === "equity") &
+                    (disableSubmitFlag || campaignTypeArr.length === 0)
                     ? "#0006"
                     : "white",
               }}
@@ -438,21 +526,60 @@ const LinaerStepper = () => {
               variant="contained"
               color="primary"
               // onClick={handleNext}
-              disabled={disableSubmitFlag || campaignTypeArr.length === 0}
+              disabled={
+                (campType === "profit") &
+                (profitPercentage <= 0 || profitPercentage > 80) ||
+                (campType === "" ||
+                  campType === "reward" ||
+                  campType === "equity") &
+                (disableSubmitFlag || campaignTypeArr.length === 0)
+              }
               onClick={() => {
                 setActiveStep(activeStep + 1);
+
                 console.log(overallData);
+
                 let send_to_API = {
                   ...overallData,
+                  milestonesData: milestonesData,
                   InvestmentType: campType,
                   InvestmentTypeDetails: campaignTypeArr,
-                  picture:images,
+                  picture: images,
                 };
+                if (campType === "profit")
+                  send_to_API = {
+                    ...send_to_API,
+                    profitPercentage: profitPercentage,
+                  };
                 // let send_to_API = overallData
                 // send_to_API['InvestmentType']=c
                 // send_to_API['InvestmentTypeDetails']=campaignTypeArr
                 console.log(send_to_API);
                 setOverallData(send_to_API);
+                props.setData(send_to_API)
+                axios
+                  .post(
+                    // body: JSON.stringify({
+                    `${process.env.REACT_APP_API_URL}/api/createcampaign`,
+                    send_to_API,
+                    {
+                      headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                      },
+                      withCredentials: true,
+                    }
+                  )
+                  .then(function (response) {
+                    console.log(response);
+                    if (response.status === 200) {
+                      alert(response.data);
+                    }
+                  })
+                  .catch(function (error) {
+                    console.log(error.response.data.msg);
+                    alert(error.response.data.msg);
+                  });
               }}
             >
               {activeStep === steps.length - 1 ? "Finish" : "Next"}

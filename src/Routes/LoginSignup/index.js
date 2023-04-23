@@ -11,8 +11,6 @@ const LoginSignup = ({setJWTAuthentication}) => {
         <Route path='/' element={<Login setJWTAuthentication={setJWTAuthentication}/>}/>
         <Route path='/signup' element={<SignUp/>}/>
         <Route path='/forgetpassword' element={<ForgetPassword/>}/>
-        {/* <Route path='/elevate' element={<HomePage/>}/> */}
-
         <Route path='/*' element={<Navigate to={'/'} />}/>
       </Routes>
     </BrowserRouter>

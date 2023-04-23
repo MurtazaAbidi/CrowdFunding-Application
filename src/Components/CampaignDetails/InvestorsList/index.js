@@ -1,8 +1,9 @@
 import React from "react";
 import "./investors-styling.css";
-import investorData from "./investorsData";
+// import investorData from "./investorsData";
 
 const InvestorsList = ({ dataForModal }) => {
+  console.log(dataForModal)
   return (
     <>
       <div
@@ -33,16 +34,25 @@ const InvestorsList = ({ dataForModal }) => {
             <th>Investor Email</th>
             <th>Investment Amount</th>
           </tr>
-          {investorData.map((element, index) => {
+          {dataForModal.investors.map((element, index) => {
             return (
-              <tr>
+              <tr key={element.invest_id}>
                 <td>{index + 1}</td>
-                <td>{element.investorName}</td>
-                <td>{element.investorEmail}</td>
-                <td>Rs. {element.amount} /=</td>
+                <td>{element.investor_name}</td>
+                <td>{element.investor_email}</td>
+                <td>Rs. {element.invest_amount} /=</td>
               </tr>
             );
           })}
+          {dataForModal.investors.length===0 ?(
+              <tr >
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+              </tr>
+            ):null
+          }
         </table>
       </div>
       {/* </div> */}

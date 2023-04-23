@@ -66,10 +66,11 @@ const SignUp = () => {
     setFromErrors(validate(formValues));
     setIsSubmit(true);
     if (Object.keys(validate(formValues)).length === 0) {
+
+
       axios
         .post(
-          // body: JSON.stringify({
-          `http://localhost:3300/api/signup`,
+          `${process.env.REACT_APP_API_URL}/api/signup`,
           {
             name: formValues.name,
             email: formValues.email,

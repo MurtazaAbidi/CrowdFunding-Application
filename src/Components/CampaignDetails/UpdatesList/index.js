@@ -5,7 +5,7 @@ import './update-styling.css';
 const today = new Date().toLocaleDateString();
 
 const Updates = ({ dataForModal }) => {
-  const [allUpdates, setAllUpdates] = useState(UpdateData)
+  const [allUpdates, setAllUpdates] = useState(dataForModal.milestones)
   const [addupdateData, setAddUpdateData] = useState(false);
 
   const submitHandler = (e) => {
@@ -22,13 +22,14 @@ const Updates = ({ dataForModal }) => {
       <div
         style={{ fontSize: "2rem", textAlign: "center", paddingBottom: "1rem" }}
       >
-        {addupdateData?<span>Add </span>:null}
-        Updates for{" "}
+        {/* {addupdateData?<span>Add </span>:null} */}
+        Milestones for{" "}
         <span style={{ fontWeight: 900 }}>{dataForModal.title}</span>
         {/* <span style={{fontWeight:700, textTransform:"capitalize"}}>{dataForModal.title} </span> */}
       </div>
       {addupdateData===false?(
-      <><div
+      <>
+      {/* <div
         style={{
           textAlign: "right",
           paddingRight: "2rem",
@@ -43,28 +44,36 @@ const Updates = ({ dataForModal }) => {
         >
           Add Update
         </button>
-      </div>
+      </div> */}
       <div style={{ overflowY: "scroll", minHeight: "17rem" }}>
         <table style={{ margin: "auto" }}>
           <tr id="header">
             <th>#</th>
-            <th>Update Title</th>
+            <th>Milestone Title</th>
             <th>Description</th>
             <th>Progress</th>
             <th>Date</th>
           </tr>
 
-          {allUpdates.map((element, index) => {
+          {allUpdates.length?allUpdates.map((element, index) => {
             return (
-              <tr>
+              <tr key={element.milestone_id}>
                 <td>{index + 1} </td>
-                <td>{element.title} </td>
-                <td sytle={{ textAlign: "left" }}>{element.description} </td>
-                <td>{element.percent}% </td>
-                <td>{element.Date} </td>
+                <td>{element.milestone_title} </td>
+                <td sytle={{ textAlign: "left" }}>{element.milestone_desc} </td>
+                <td>{((index+1)*100/allUpdates.length).toFixed(2)}% </td>
+                <td>{element.milestone_date} </td>
               </tr>
             );
-          })}
+          }):
+          <tr>
+                <td>-</td>
+                <td>-</td>
+                <td sytle={{ textAlign: "left" }}>-</td>
+                <td>-</td>
+                <td>-</td>
+              </tr>
+          }
         </table>
       </div>
       </>):(

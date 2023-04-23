@@ -2,7 +2,7 @@ import React from 'react'
 import './comments-styling.css'
 import Comments from './comments/Comments'
 
-const CampaignComments = () => {
+const CampaignComments = ({dataForModal}) => {
   return (
     <>
     {/* <div className="modaltitle" style={{position:'absolute',paddingTop:'2rem', textDecoration:'underline'}}>
@@ -13,7 +13,7 @@ const CampaignComments = () => {
 
     
     <Comments
-        currentUserId="1"
+        currentUserId="1" dataForModal={dataForModal}
         />
         </div>
     

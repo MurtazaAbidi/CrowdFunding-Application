@@ -1,0 +1,13 @@
+.sidebar-logout-btn{
+    background-color: #9bd4e6;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+}
+
+.sidebar-logout-btn:hover{
+    opacity: 0.8;
+    text-decoration: underline;
+    box-shadow: grey 0px 0px 15px 5px;
+}

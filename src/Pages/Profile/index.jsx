@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./profile.css";
 
+import ProfilePic from '../../Assets/Profile.jpg'
 const ProfileValues={
   name:"Murtaza Abidi",
   email:"murtaza@gmail.com",
   phone:"03331234567",
   cnic:"4230112345673",
-  profileImage:"https://media-exp1.licdn.com/dms/image/D4D03AQHR8fjJMNZv8A/profile-displayphoto-shrink_800_800/0/1665421703328?e=2147483647&v=beta&t=njTIq2UlGBRckyRemP4aFbJkB6wgyTQcn8w4ZL3OxPI",
+  profileImage: ProfilePic,
   officeAddress:"Plot no. 426, Street no. 52, Shah latif Town, Karachi."
 }
 

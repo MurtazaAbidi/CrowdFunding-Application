@@ -80,7 +80,7 @@ const AddPicturesAndVideo = ({images, setImages}) => {
             type="file"
             id="file"
             onChange={changeHandler}
-            accept="image/png, image/jpg, image/jpeg"
+            accept="image/png, image/jpg, image/jpeg, image/gif"
             multiple
             />
         </p>

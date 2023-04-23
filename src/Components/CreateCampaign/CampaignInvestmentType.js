@@ -48,17 +48,46 @@ const CampaignInvestmentType = (props) => {
                 fontWeight: 600,
               }}
             >
-              Donation Amount:
+              Reward Amount:
             </div>
             <Controller
               control={control}
-              name="donationAmount"
+              name="rewardAmount"
               render={({ field }) => (
                 <TextField
-                  id="donationAmount"
-                  label="Donation Amount"
+                  id="rewardAmount"
+                  label="Reward Amount"
                   variant="outlined"
-                  placeholder="Enter the Donation Amount"
+                  placeholder="Enter the reward Amount"
+                  fullWidth
+                  margin="normal"
+                  type="number"
+                  required
+                  {...field}
+                />
+              )}
+            />
+          </>
+        ) : campType === "equity" ? (
+          <>
+            <div
+              style={{
+                paddingLeft: "1rem",
+                marginTop: "1rem",
+                fontWeight: 600,
+              }}
+            >
+              Share Percentage:
+            </div>
+            <Controller
+              control={control}
+              name="sharePercentage"
+              render={({ field }) => (
+                <TextField
+                  id="sharePercentage"
+                  label="Share Percentage"
+                  variant="outlined"
+                  placeholder="Enter the Share Percentage"
                   fullWidth
                   margin="normal"
                   type="number"
@@ -74,26 +103,27 @@ const CampaignInvestmentType = (props) => {
                 fontWeight: 600,
               }}
             >
-              Reward Description:
+              Share Amount:
             </div>
             <Controller
               control={control}
-              name="rewardDescription"
+              name="shareAmount"
               render={({ field }) => (
                 <TextField
-                  id="rewardDescription"
-                  label="Reward Description"
+                  id="shareAmount"
+                  label="Share Amount"
                   variant="outlined"
-                  placeholder="Enter the Reward Description"
+                  placeholder="Enter the Share Amount:"
                   fullWidth
                   margin="normal"
+                  type="number"
                   required
                   {...field}
                 />
               )}
             />
           </>
-        ) : null}
+        ): null}
       </div>
     </>
   );

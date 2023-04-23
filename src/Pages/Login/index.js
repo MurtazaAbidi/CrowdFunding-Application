@@ -26,10 +26,11 @@ const Login = ({ setJWTAuthentication }) => {
     setFromErrors(validate(formValues));
     setIsSubmit(true);
     if (Object.keys(validate(formValues)).length === 0) {
+    // alert (process.env.REACT_APP_API_URL);
+      
       axios
         .post(
-          // body: JSON.stringify({
-          `http://localhost:3300/api/login`,
+          `${process.env.REACT_APP_API_URL}/api/login`,
           {
             email: formValues.email,
             password: formValues.password,
@@ -90,7 +91,7 @@ const Login = ({ setJWTAuthentication }) => {
           <pre
             style={{ color: "white", position: "absolute", left: 10, top: 10 }}
           >
-            Log In Successfully
+            Correct Validations
           </pre>
         ) : (
           <pre
