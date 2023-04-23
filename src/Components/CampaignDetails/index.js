@@ -38,14 +38,14 @@ function Modal({ setOpenModal, dataForModal }) {
           </button>
         </div>
         <div className="modaltitle">
-          <span style={{textDecoration:'underline'}}>{dataForModal.title}  </span>
-          <span style={{paddingLeft:'1.5rem', fontSize:'1.3rem', fontWeight:'100', color:'#c59d5f'}}>(Time left: {dataForModal.hoursLeft}hr)</span>
+          <span style={{textDecoration:'underline'}}>{dataForModal.campaign_title}  </span>
+          <span style={{paddingLeft:'1.5rem', fontSize:'1.3rem', fontWeight:'100', color:'#c59d5f'}}>(Days left: {dataForModal.days_left.days} days)</span>
         </div>
         <div className="body" style={{paddingTop:'2rem'}}>
-          <img src={dataForModal.img} alt={dataForModal.title} style={{height:'15rem', paddingRight:'1rem'}} />
-          <p style={{textAlign:"left", height:'13rem', overflow:'hidden scroll', paddingRight:'1rem', fontSize:'1.3rem'}}>{dataForModal.desc}</p>
+          <img src={dataForModal.campaign_image} alt={dataForModal.campaign_title} style={{height:'15rem', paddingRight:'1rem'}} />
+          <p style={{textAlign:"left", height:'13rem', overflow:'hidden scroll', paddingRight:'1rem', fontSize:'1.3rem'}}>{dataForModal.campaign_description}</p>
         </div>
-          <div style={{  height:'1rem', fontSize:'1rem', textDecoration:'underline', padding:'5px 23px',borderRadius:30, color:'#4267B2', fontWeight:800, textAlign:'right'}}><span style={{cursor:'pointer'}} onClick={()=>{console.log("like button Clicked")}}>Likes: {dataForModal.like}</span></div>
+          <div style={{  height:'1rem', fontSize:'1rem', textDecoration:'underline', padding:'5px 23px',borderRadius:30, color:'#4267B2', fontWeight:800, textAlign:'right'}}><span style={{cursor:'pointer'}} onClick={()=>{console.log("like button Clicked")}}>Likes: {dataForModal.likes}</span></div>
           <ProgressBar progress={dataForModal.progress} height={22} />
           </>
         )}

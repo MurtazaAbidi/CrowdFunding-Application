@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Categories from "../../Components/MyProducts/Categories";
 import Menu from "../../Components/MyProducts/Menu";
-import items from "../../Components/MyProducts/data";
+// import items from "../../Components/MyProducts/data";
 import "./style.css";
 import Modal from "../../Components/CampaignDetails";
 import axios from "axios";
 
-const allCategories = ["all", ...new Set(items.map((item) => item.category))];
+const allCategories = ["all", "equity", "reward", "profit", "donation"];
 
 const MyProducts = () => {
+  const [items, setItems] = useState([])
   const [menuItems, setMenuItems] = useState([]);
   const [activeCategory, setActiveCategory] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
@@ -30,6 +31,7 @@ const MyProducts = () => {
       .then(function (response) {
         console.log(response.data);
         setMenuItems(response.data)
+        setItems(response.data)
       })
       .catch(function (error) {
         console.log(error.response.data.msg);
@@ -43,7 +45,7 @@ const MyProducts = () => {
       setMenuItems(items);
       return;
     }
-    const newItems = items.filter((item) => item.category === category);
+    const newItems = items.filter((item) => item.campaign_type === category);
     setMenuItems(newItems);
   };
   return (
