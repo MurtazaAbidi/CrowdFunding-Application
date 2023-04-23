@@ -49,7 +49,7 @@ const Comment = ({
             }}
           />
         )}
-        <div className="comment-actions">
+        {/* <div className="comment-actions">
           {canReply && (
             <div
               className="comment-action"
@@ -84,7 +84,7 @@ const Comment = ({
             submitLabel="Reply"
             handleSubmit={(text) => addComment(text, replyId)}
           />
-        )}
+        )} */}
         {replies.length > 0 && (
           <div className="replies">
             {replies.map((reply) => (
