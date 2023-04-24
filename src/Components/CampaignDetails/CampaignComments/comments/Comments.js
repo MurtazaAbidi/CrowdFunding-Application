@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import CommentForm from "./CommentForm";
 import Comment from "./Comment";
 import {
-  getComments as getCommentsApi,
   createComment as createCommentApi,
   updateComment as updateCommentApi,
   deleteComment as deleteCommentApi,
@@ -23,7 +22,7 @@ const Comments = ({ currentUserId, dataForModal }) => {
           new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
       );
   const addComment = (text, parentId) => {
-    createCommentApi(text, parentId).then((comment) => {
+    createCommentApi(text, parentId, dataForModal.campaigner_name).then((comment) => {
       setBackendComments([comment, ...backendComments]);
       setActiveComment(null);
     });
