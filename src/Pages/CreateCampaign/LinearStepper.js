@@ -574,6 +574,7 @@ const LinaerStepper = (props) => {
                     console.log(response);
                     if (response.status === 200) {
                       alert(response.data);
+                      localStorage.clear();
                     }
                   })
                   .catch(function (error) {

@@ -4,10 +4,9 @@ import CampaignComments from "./CampaignComments";
 import InvestorsList from "./InvestorsList";
 import "./Modal.css";
 import Updates from "./UpdatesList";
-import Comments from "./CampaignComments/comments/Comments";
 import axios from "axios";
 
-function Modal({ setOpenModal, dataForModal, setDataForModal }) {
+function Modal({ setOpenModal, dataForModal, setDataForModal, myCampaigns}) {
   const [invertorsFlag, setInvestorFlag] = useState(false);
   const [updateFlag, setUpdateFlag] = useState(false);
   const [commentsFlag, setCommentsFlag] = useState(false);
@@ -48,7 +47,7 @@ function Modal({ setOpenModal, dataForModal, setDataForModal }) {
             X
           </button>
           </div>
-          <CampaignComments dataForModal={dataForModal}/>
+          <CampaignComments dataForModal={dataForModal} myCampaigns={myCampaigns}/>
           </>
           ): (
             <>
@@ -87,7 +86,7 @@ function Modal({ setOpenModal, dataForModal, setDataForModal }) {
           <button onClick={()=>{setUpdateFlag(true)}}>MileStones</button>
           <button style={{backgroundColor:'white', color:' cornflowerblue', border:'1px solid'}} onClick={()=>{setInvestorFlag(true)}}>Investors</button>
           <button style={{backgroundColor:'white', color:' cornflowerblue', border:'1px solid'}} onClick={()=>{setCommentsFlag(true)}}>Comments</button>
-            {dataForModal.days_left.days<=10 && dataForModal.progress!==100?<><button style={{width:'17rem', backgroundColor:'crimson' }}>Time-Extend Request</button></>:null}
+            {dataForModal.days_left.days<=10 && dataForModal.progress!==100 && myCampaigns===true?<><button style={{width:'17rem', backgroundColor:'crimson' }}>Time-Extend Request</button></>:null}
             </>
             ): (invertorsFlag === true || updateFlag=== true) ?
             <button style={{
