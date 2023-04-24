@@ -21,7 +21,7 @@ const MyProducts = () => {
     setLoading(true);
     axios.get(
       // body: JSON.stringify({
-      `${process.env.REACT_APP_API_URL}/api/showcampaigns`,
+      `${process.env.REACT_APP_API_URL}/api/showmycampaigns`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -54,7 +54,7 @@ const MyProducts = () => {
   };
   return (
     <>
-      {modalOpen && <Modal setOpenModal={setModalOpen} dataForModal={dataForModal} setDataForModal={setDataForModal} />}
+      {modalOpen && <Modal setOpenModal={setModalOpen} dataForModal={dataForModal} setDataForModal={setDataForModal} myCampaigns={true}/>}
         <div className="myProduct-body">
           <main>
             <section className="section">
@@ -68,7 +68,7 @@ const MyProducts = () => {
                 activeCategory={activeCategory}
                 filterItems={filterItems}
               />
-              <Menu items={menuItems} setModalOpen={setModalOpen} setDataForModal={setDataForModal} loading={loading}/>
+              <Menu items={menuItems} setModalOpen={setModalOpen} setDataForModal={setDataForModal} loading={loading} />
             </section>
           </main>
         </div>

@@ -1,21 +1,46 @@
 import React, { useEffect, useState } from "react";
 import Categories from "../../Components/MyProducts/Categories";
 import Menu from "../../Components/MyProducts/Menu";
-import items from "../../Components/MyProducts/dashboardData.js";
 import "./style.css";
 import Modal from "../../Components/CampaignDetails";
+import axios from "axios";
 
-const allCategories = ["all", ...new Set(items.map((item) => item.category))];
+const allCategories = ["all", "equity", "reward", "profit", "donation"];
 
 const Dashboard = () => {
-  useEffect(()=>{
-    
-  })
-  const [menuItems, setMenuItems] = useState(items);
+  const [items, setItems] = useState([])
+  const [menuItems, setMenuItems] = useState([]);
   const [activeCategory, setActiveCategory] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [dataForModal, setDataForModal] = useState({})
+  const [loading, setLoading] = useState(false);
   const categories = allCategories;
+  
+  useEffect(()=>{
+    setLoading(true);
+    axios.get(
+      // body: JSON.stringify({
+      `${process.env.REACT_APP_API_URL}/api/showcampaigns`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        withCredentials: true,
+      }
+    )
+      .then(function (response) {
+        console.log(response.data);
+        setMenuItems(response.data)
+        setItems(response.data)
+        setLoading(false);
+      })
+      .catch(function (error) {
+        console.log(error.response.data.msg);
+        alert(error.response.data.msg);
+        setLoading(false);
+      });
+  }, [])
 
   const filterItems = (category) => {
     setActiveCategory(category);
@@ -23,12 +48,12 @@ const Dashboard = () => {
       setMenuItems(items);
       return;
     }
-    const newItems = items.filter((item) => item.category === category);
+    const newItems = items.filter((item) => item.campaign_type === category);
     setMenuItems(newItems);
   };
   return (
     <>
-      {modalOpen && <Modal setOpenModal={setModalOpen} dataForModal={dataForModal}/>}
+      {modalOpen && <Modal setOpenModal={setModalOpen} dataForModal={dataForModal} setDataForModal={setDataForModal} myCampaigns={false}/>}
       <div className="myProduct-body">
         <main>
           <section className="section">
@@ -42,7 +67,7 @@ const Dashboard = () => {
               activeCategory={activeCategory}
               filterItems={filterItems}
             />
-            <Menu items={menuItems} setModalOpen={setModalOpen} setDataForModal={setDataForModal}/>
+            <Menu items={menuItems} setModalOpen={setModalOpen} setDataForModal={setDataForModal} loading={loading}/>
           </section>
         </main>
       </div>
