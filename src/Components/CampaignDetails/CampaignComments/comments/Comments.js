@@ -2,14 +2,13 @@ import { useState, useEffect } from "react";
 import CommentForm from "./CommentForm";
 import Comment from "./Comment";
 import {
-  getComments as getCommentsApi,
   createComment as createCommentApi,
   updateComment as updateCommentApi,
   deleteComment as deleteCommentApi,
 } from "../api";
 import axios from "axios";
 
-const Comments = ({ currentUserId, dataForModal }) => {
+const Comments = ({ currentUserId, dataForModal, myCampaigns }) => {
   const [backendComments, setBackendComments] = useState([]);
   const [activeComment, setActiveComment] = useState(null);
   const rootComments = backendComments.filter(
@@ -23,13 +22,13 @@ const Comments = ({ currentUserId, dataForModal }) => {
           new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
       );
   const addComment = (text, parentId) => {
-    createCommentApi(text, parentId).then((comment) => {
+    createCommentApi(text, parentId, dataForModal.campaigner_name).then((comment) => {
       setBackendComments([comment, ...backendComments]);
       setActiveComment(null);
     });
     console.log(dataForModal.campaign_id, dataForModal.campaigner_id, text)
     const data_send_to_comment_api = {
-      campaign_id:dataForModal.campaign_id,
+      campaign_id: dataForModal.campaign_id,
       campaigner_id: dataForModal.campaigner_id,
       comment_msg: text
     }
@@ -102,9 +101,13 @@ const Comments = ({ currentUserId, dataForModal }) => {
 
   return (
     <div className="comments">
-      <div className="comment-form-title">Write comment:</div>
-      <CommentForm submitLabel="Write" handleSubmit={addComment} />
-      <div style={{ marginTop: '1rem', borderTop: '1px white', borderTopStyle: 'inset' }} />
+      <div className="comment-form-title">{myCampaigns ? 'Write comment:' : 'Comments'}</div>
+        
+      {myCampaigns ?
+          <CommentForm submitLabel="Write" handleSubmit={addComment} />
+          : null}
+
+          <div style={{ marginTop: '1rem', borderTop: '1px white', borderTopStyle: 'inset' }} />
       <div style={{ backgroundColor: 'aliceblue', height: '21rem', width: '50rem', textAlign: 'center', padding: '2rem', margin: '1.25rem', border: '2px solid', boxShadow: 'grey 20px 20px 20px 0px, inset grey 0px 0px 2rem 0px', overflowY: 'scroll' }}>
 
         <div className="comments-container">
