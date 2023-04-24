@@ -6,7 +6,7 @@ import LoginSignup from './Routes/LoginSignup'
 
 const App = () => {
   const [loading, setLoading] = useState(true)
-  const [JWTAuthentication, setJWTAuthentication] = useState(false)
+  const [JWTAuthentication, setJWTAuthentication] = useState(null)
   useEffect(() => {
     setLoading(true)
     // ----------API CALL------------
@@ -40,7 +40,17 @@ const App = () => {
     setLoading(false)
   }, [])
 
-  return <>{loading ? null : JWTAuthentication === true ? (<HomePage />) : JWTAuthentication === false ? (<LoginSignup setJWTAuthentication={setJWTAuthentication} />) : null}</>
+  return <>
+    {loading ?
+    <div style={{display: 'flex', alignItems:'center', justifyContent:'center', textAlign:'center', height:'100vh', backgroundImage:'linear-gradient(transparent, #cbcbcbd6)'}}>
+      <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+      : JWTAuthentication === true
+        ? (<HomePage />)
+        : JWTAuthentication === false
+          ? (<LoginSignup setJWTAuthentication={setJWTAuthentication} />)
+          : null}
+  </>
 }
 
 export default App
