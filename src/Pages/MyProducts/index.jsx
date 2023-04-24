@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Categories from "../../Components/MyProducts/Categories";
 import Menu from "../../Components/MyProducts/Menu";
-// import items from "../../Components/MyProducts/data";
 import "./style.css";
 import Modal from "../../Components/CampaignDetails";
 import axios from "axios";
@@ -60,7 +59,7 @@ const MyProducts = () => {
             <section className="section">
               <div className="title">
                 {/* <img src={logo} alt="logo" className="logo" /> */}
-                <h2 style={{ fontSize: "3rem" }}>My Products</h2>
+                <h2 style={{ fontSize: "3rem" }}>My Campaigns</h2>
                 <div className="underline"></div>
               </div>
               <Categories

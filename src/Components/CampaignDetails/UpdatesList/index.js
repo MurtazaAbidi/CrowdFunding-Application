@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import UpdateData from "./UpdateData";
 import './update-styling.css';
 
 const today = new Date().toLocaleDateString();
@@ -24,7 +23,7 @@ const Updates = ({ dataForModal }) => {
       >
         {/* {addupdateData?<span>Add </span>:null} */}
         Milestones for{" "}
-        <span style={{ fontWeight: 900 }}>{dataForModal.title}</span>
+        <span style={{ fontWeight: 900 }}>{dataForModal.campaign_title}</span>
         {/* <span style={{fontWeight:700, textTransform:"capitalize"}}>{dataForModal.title} </span> */}
       </div>
       {addupdateData===false?(

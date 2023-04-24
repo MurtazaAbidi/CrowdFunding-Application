@@ -11,7 +11,7 @@ const InvestorsList = ({ dataForModal }) => {
       >
         Investors List for{" "}
         <span style={{ fontWeight: 700, textTransform: "capitalize" }}>
-          {dataForModal.title}{" "}
+          {dataForModal.campaign_title}{" "}
         </span>
       </div>
       <div
