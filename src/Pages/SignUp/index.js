@@ -70,7 +70,7 @@ const SignUp = () => {
 
       axios
         .post(
-          `${process.env.REACT_APP_API_URL}/api/signup`,
+          `${process.env.REACT_APP_API_URL}/api/campaigner/signup`,
           {
             name: formValues.name,
             email: formValues.email,

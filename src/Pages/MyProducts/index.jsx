@@ -20,7 +20,7 @@ const MyProducts = () => {
     setLoading(true);
     axios.get(
       // body: JSON.stringify({
-      `${process.env.REACT_APP_API_URL}/api/showmycampaigns`,
+      `${process.env.REACT_APP_API_URL}/api/campaigner/showmycampaigns`,
       {
         headers: {
           "Content-Type": "application/json",

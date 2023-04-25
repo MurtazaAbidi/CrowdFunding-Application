@@ -136,7 +136,7 @@ const SideBar = ({ children }) => {
                 className="sidebar-logout-btn"
                 onClick={() => {
                   axios.get(
-                    `${process.env.REACT_APP_API_URL}/api/logout`,
+                    `${process.env.REACT_APP_API_URL}/api/campaigner/logout`,
                       {
                         headers: {
                           "Content-Type": "application/json",

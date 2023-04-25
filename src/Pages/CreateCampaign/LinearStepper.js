@@ -570,7 +570,7 @@ const LinaerStepper = (props) => {
                 axios
                   .post(
                     // body: JSON.stringify({
-                    `${process.env.REACT_APP_API_URL}/api/createcampaign`,
+                    `${process.env.REACT_APP_API_URL}/api/campaigner/createcampaign`,
                     send_to_API,
                     {
                       headers: {

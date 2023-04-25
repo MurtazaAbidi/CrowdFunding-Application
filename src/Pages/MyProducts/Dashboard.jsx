@@ -20,7 +20,7 @@ const Dashboard = () => {
     setLoading(true);
     axios.get(
       // body: JSON.stringify({
-      `${process.env.REACT_APP_API_URL}/api/showcampaigns`,
+      `${process.env.REACT_APP_API_URL}/api/campaigner/showcampaigns`,
       {
         headers: {
           "Content-Type": "application/json",

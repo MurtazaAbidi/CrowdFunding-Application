@@ -35,7 +35,7 @@ const Comments = ({ currentUserId, dataForModal, myCampaigns }) => {
     axios
       .post(
         // body: JSON.stringify({
-        `${process.env.REACT_APP_API_URL}/api/addcomment`,
+        `${process.env.REACT_APP_API_URL}/api/campaigner/addcomment`,
         data_send_to_comment_api,
         {
           headers: {
