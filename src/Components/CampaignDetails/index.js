@@ -14,7 +14,7 @@ function Modal({ setOpenModal, dataForModal, setDataForModal, myCampaigns}) {
   useEffect(()=>{
     axios.get(
       // body: JSON.stringify({
-      `${process.env.REACT_APP_API_URL}/api/getcampaigndetails/${dataForModal.campaign_id}`,
+      `${process.env.REACT_APP_API_URL}/api/campaigner/getcampaigndetails/${dataForModal.campaign_id}`,
       {
         headers: {
           "Content-Type": "application/json",

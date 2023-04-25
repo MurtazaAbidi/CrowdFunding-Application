@@ -13,7 +13,7 @@ const App = () => {
     axios
       .get(
         // body: JSON.stringify({
-        `${process.env.REACT_APP_API_URL}/api/authorize`,
+        `${process.env.REACT_APP_API_URL}/api/campaigner/authorize`,
         {
           headers: {
             "Content-Type": "application/json",

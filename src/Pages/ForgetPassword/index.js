@@ -23,7 +23,7 @@ const ForgetPassword = () => {
       axios
         .post(
           // body: JSON.stringify({
-            `${process.env.REACT_APP_API_URL}/api/reset-password`,
+            `${process.env.REACT_APP_API_URL}/api/campaigner/reset-password`,
           {
             email: formValues.email,
           },

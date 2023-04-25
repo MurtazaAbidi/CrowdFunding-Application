@@ -22,7 +22,7 @@ const Profile = () => {
   useEffect(() => {
     axios.get(
       // body: JSON.stringify({
-      `${process.env.REACT_APP_API_URL}/api/profile`,
+      `${process.env.REACT_APP_API_URL}/api/campaigner/profile`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -67,7 +67,7 @@ const Profile = () => {
 
     axios.put(
       // body: JSON.stringify({
-      `${process.env.REACT_APP_API_URL}/api/updateprofile`,
+      `${process.env.REACT_APP_API_URL}/api/campaigner/updateprofile`,
       profileData,
       {
         headers: {

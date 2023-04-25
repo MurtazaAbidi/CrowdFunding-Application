@@ -30,7 +30,7 @@ const Login = ({ setJWTAuthentication }) => {
       
       axios
         .post(
-          `${process.env.REACT_APP_API_URL}/api/login`,
+          `${process.env.REACT_APP_API_URL}/api/campaigner/login`,
           {
             email: formValues.email,
             password: formValues.password,

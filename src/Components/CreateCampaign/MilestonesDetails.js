@@ -1,9 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import './MilestonesDetailsStyles.css'
 
-const MilestonesDetails = ({ milestonesData, setMilestonesData, noOfMilestones, setNoOfMilestones }) => {
-    const [milestoneProgress, setMilestoneProgress] = useState([]);
-    const [closeDropdown, setCloseDropdown] = useState(false)
+const MilestonesDetails = ({ milestonesData, setMilestonesData, noOfMilestones, setNoOfMilestones, overallData,milestoneProgress,setMilestoneProgress}) => {
+    console.log(milestonesData)
+    console.log(milestoneProgress)
+    const [closeDropdown, setCloseDropdown] = useState(milestonesData.length < 3 ? false : true)
+    useEffect(()=>{
+        if (milestonesData.length>= 3){
+            let progressTemp = []
+            let i = 100 / milestonesData.length;
+            while (i < 101) {
+                progressTemp.push(i)
+                i += 100 / milestonesData.length;
+            }
+            setMilestoneProgress(progressTemp)
+            console.log(progressTemp)
+        }
+    },[])
     const handleSetMileStones = (e) => {
         e.preventDefault();
         console.log(e.target.value);
@@ -14,7 +27,7 @@ const MilestonesDetails = ({ milestonesData, setMilestonesData, noOfMilestones, 
         let DataForMileStone = []
         let i = 100 / e.target.value;
         while (i < 101) {
-            let temp = {title:'',description:'',progress:'',duration:5}
+            let temp = { title: '', description: '', progress: '', duration: 3 }
             progressTemp.push(i)
             temp.progress = i
             DataForMileStone.push(temp)
@@ -24,18 +37,22 @@ const MilestonesDetails = ({ milestonesData, setMilestonesData, noOfMilestones, 
         setMilestonesData(DataForMileStone)
         console.log(progressTemp)
         setMilestoneProgress(progressTemp)
+
+        let save_data = {
+            ...overallData,
+            milestonesData: milestonesData,
+        }
+        console.log(save_data)
+        
     }
 
-    useEffect(()=>{
-        console.log(milestonesData)
-    })
     return (
         <div className='milestonesDetails-container'>
             {
-                !closeDropdown ?
+                !closeDropdown && noOfMilestones < 3 ?
                     <div className='milestonesDetails-dropdown'>
                         <h5>How many Milestones</h5>
-                        <select id="milestones" name='milestones' placeholder='Milestones Breakdown' onChange={handleSetMileStones} required>
+                        <select id="milestones" name='milestones' placeholder='Milestones Breakdown' value={noOfMilestones} onChange={handleSetMileStones} required>
                             <option value='null' disabled={true}>No. of Milestones</option>
                             <option value='2'>2</option>
                             <option value='3'>3</option>
@@ -69,30 +86,30 @@ const MilestonesDetails = ({ milestonesData, setMilestonesData, noOfMilestones, 
                                 {milestoneProgress.map((element, index) => {
                                     return <tr key={index}>
                                         <td>{index + 1})</td>
-                                        <td><input type="text" placeholder='Enter Title' onChange={(e)=>{
+                                        <td><input type="text" placeholder='Enter Title' defaultValue={milestonesData[index].title} onChange={(e) => {
                                             let temp = ([...milestonesData])
                                             temp[index].title = e.target.value;
                                             setMilestonesData(temp)
                                         }} required /></td>
-                                        <td><textarea placeholder='Enter Description' onChange={(e)=>{
+                                        <td><textarea placeholder='Enter Description' defaultValue={milestonesData[index].description} onChange={(e) => {
                                             let temp = ([...milestonesData])
                                             temp[index].description = e.target.value;
                                             setMilestonesData(temp)
                                         }} required /></td>
-                                        <td>{element.toFixed(2)}%</td>
+                                        <td>{element.toFixed(2)}% </td>
                                         <td>
-                                            <select onChange={(e)=>{
-                                            let temp = ([...milestonesData])
-                                            temp[index].duration = Number(e.target.value);
-                                            setMilestonesData(temp)
-                                        }}>
+                                            <select onChange={(e) => {
+                                                let temp = ([...milestonesData])
+                                                temp[index].duration = Number(e.target.value);
+                                                setMilestonesData(temp)
+                                            }}>
+                                                <option value={3}>3 Days</option>
                                                 <option value={5}>5 Days</option>
                                                 <option value={10}>10 Days</option>
                                                 <option value={15}>15 Days</option>
                                                 <option value={30}>1 Month</option>
                                                 <option value={90}>3 Months</option>
-                                                <option value={180}>6 Months</option>
-                                                <option value={365}>1 Year</option>
+                                                <option value={120}>4 Months</option>
                                             </select>
                                         </td>
                                     </tr>
