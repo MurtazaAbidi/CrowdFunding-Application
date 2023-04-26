@@ -18,7 +18,7 @@ const Menu = ({ items, setModalOpen, setDataForModal, loading }) => {
                 <div style={{ width: '30rem' }} className="item-info">
                   <header>
                     <h4>{campaign_title}</h4>
-                    <h4 className="price" style={{ color: -(days_left ? days_left.days <= 10 : false) && progress !== 100 ? '#DC3545' : null }}>Days Left: {days_left ? days_left.days : null}</h4>
+                    <h4 className="price" style={{ color: (days_left ? days_left.days <= 10 : false) && progress !== 100 ? '#DC3545' : null }}>Days Left: {days_left ? days_left.days : null}</h4>
                   </header>
                   <p className="item-text">{campaign_description}</p>
                   <div style={{ textAlign: 'right', margin: '5px', }}><span style={{ padding: '5px 23px', borderRadius: 30, color: '#4267B2', fontWeight: 700 }}>Likes: {likes}</span></div>
