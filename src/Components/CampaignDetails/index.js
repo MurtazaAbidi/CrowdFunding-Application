@@ -6,7 +6,7 @@ import "./Modal.css";
 import Updates from "./UpdatesList";
 import axios from "axios";
 
-function Modal({ setOpenModal, dataForModal, setDataForModal, myCampaigns}) {
+function Modal({ allRejectedCampaignsMessage, rejectedCampaignsId, setOpenModal, dataForModal, setDataForModal, myCampaigns}) {
   const [invertorsFlag, setInvestorFlag] = useState(false);
   const [updateFlag, setUpdateFlag] = useState(false);
   const [commentsFlag, setCommentsFlag] = useState(false);
@@ -25,7 +25,7 @@ function Modal({ setOpenModal, dataForModal, setDataForModal, myCampaigns}) {
     )
     .then(function (response) {
       console.log(response.data);
-      setDataForModal({...dataForModal, milestones: response.data.milestones, investors: response.data.investors , comments:response.data.comments})
+      setDataForModal({...dataForModal, milestones: response.data.milestones, investors: response.data.investors , comments:response.data.comments, rejected: response.data.rejected})
     })
     .catch(function (error) {
       console.log(error.response.data.msg);
@@ -62,11 +62,15 @@ function Modal({ setOpenModal, dataForModal, setDataForModal, myCampaigns}) {
         </div>
         <div className="modaltitle">
           <span style={{textDecoration:'underline'}}>{dataForModal.campaign_title}  </span>
-          <span style={{paddingLeft:'1.5rem', fontSize:'1.3rem', fontWeight:'100', color:'#c59d5f'}}>(Days left: {dataForModal.days_left.days} days)</span>
+          {(rejectedCampaignsId.length>0?rejectedCampaignsId.includes(dataForModal.campaign_id):null)?
+          
+        <span style={{paddingLeft:'1.5rem', fontSize:'1.3rem', fontWeight:'100', color:'red'}}>(Rejected Campaign)</span>
+          :<span style={{paddingLeft:'1.5rem', fontSize:'1.3rem', fontWeight:'100', color:'#c59d5f'}}>(Days left: {dataForModal.days_left.days} days)</span>
+        }
         </div>
         <div className="body" style={{paddingTop:'2rem'}}>
           <img src={dataForModal.campaign_image} alt={dataForModal.campaign_title} style={{height:'15rem', paddingRight:'1rem'}} />
-          <p style={{textAlign:"left", height:'13rem', overflow:'hidden scroll', paddingRight:'1rem', fontSize:'1.3rem'}}>{dataForModal.campaign_description}</p>
+          <p style={{textAlign:"left", height:'13rem', overflow:'hidden scroll', paddingRight:'1rem', fontSize:'1.3rem'}}>{(rejectedCampaignsId.length>0?rejectedCampaignsId.includes(dataForModal.campaign_id):null)?<h2 style={{color:'red'}}><h1>Rejected Reason: </h1><hr/>{dataForModal.rejected?dataForModal.rejected[0].rejected_message:null}<hr/></h2>:null}{dataForModal.campaign_description}</p>
         </div>
           <div style={{  height:'1rem', fontSize:'1rem', textDecoration:'underline', padding:'5px 23px',borderRadius:30, color:'#4267B2', fontWeight:800, textAlign:'right'}}><span style={{cursor:'pointer'}} onClick={()=>{console.log("like button Clicked")}}>Likes: {dataForModal.likes}</span></div>
           <ProgressBar progress={dataForModal.progress} height={22} />
