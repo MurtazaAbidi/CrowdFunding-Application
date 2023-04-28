@@ -8,6 +8,8 @@ import axios from "axios";
 const allCategories = ["all", "equity", "reward", "profit", "donation"];
 
 const MyProducts = () => {
+  const [rejectedCampaignsId, setRejectedCampaignsId]= useState([])
+  const [allRejectedCampaignsMessage, setAllRejectedCampaignsMessage] = useState([])
   const [items, setItems] = useState([])
   const [menuItems, setMenuItems] = useState([]);
   const [activeCategory, setActiveCategory] = useState("");
@@ -31,8 +33,11 @@ const MyProducts = () => {
     )
       .then(function (response) {
         console.log(response.data);
-        setMenuItems(response.data)
-        setItems(response.data)
+        setMenuItems(response.data.myCampaigns)
+        setItems(response.data.myCampaigns)
+        response.data.rejectedCampaigns.forEach((element)=>{
+          setRejectedCampaignsId([...rejectedCampaignsId, element.campaign_id])
+        })
         setLoading(false);
       })
       .catch(function (error) {
@@ -53,7 +58,7 @@ const MyProducts = () => {
   };
   return (
     <>
-      {modalOpen && <Modal setOpenModal={setModalOpen} dataForModal={dataForModal} setDataForModal={setDataForModal} myCampaigns={true}/>}
+      {modalOpen && <Modal rejectedCampaignsId={rejectedCampaignsId} setOpenModal={setModalOpen} dataForModal={dataForModal} setDataForModal={setDataForModal} myCampaigns={true}/>}
         <div className="myProduct-body">
           <main>
             <section className="section">
@@ -67,7 +72,7 @@ const MyProducts = () => {
                 activeCategory={activeCategory}
                 filterItems={filterItems}
               />
-              <Menu items={menuItems} setModalOpen={setModalOpen} setDataForModal={setDataForModal} loading={loading} />
+              <Menu rejectedCampaignsId={rejectedCampaignsId} items={menuItems} setModalOpen={setModalOpen} setDataForModal={setDataForModal} loading={loading} />
             </section>
           </main>
         </div>

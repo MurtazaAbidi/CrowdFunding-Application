@@ -61,7 +61,7 @@ const Updates = ({ dataForModal }) => {
                 <td>{element.milestone_title} </td>
                 <td sytle={{ textAlign: "left" }}>{element.milestone_desc} </td>
                 <td>{((index+1)*100/allUpdates.length).toFixed(2)}% </td>
-                <td>{element.milestone_date} </td>
+                <td>{element.milestone_date.substr(0, 10)} </td>
               </tr>
             );
           }):

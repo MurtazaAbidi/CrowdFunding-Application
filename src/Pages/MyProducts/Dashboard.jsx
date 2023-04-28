@@ -53,7 +53,7 @@ const Dashboard = () => {
   };
   return (
     <>
-      {modalOpen && <Modal setOpenModal={setModalOpen} dataForModal={dataForModal} setDataForModal={setDataForModal} myCampaigns={false}/>}
+      {modalOpen && <Modal rejectedCampaignsId={[]} setOpenModal={setModalOpen} dataForModal={dataForModal} setDataForModal={setDataForModal} myCampaigns={false}/>}
       <div className="myProduct-body">
         <main>
           <section className="section">
@@ -67,7 +67,7 @@ const Dashboard = () => {
               activeCategory={activeCategory}
               filterItems={filterItems}
             />
-            <Menu items={menuItems} setModalOpen={setModalOpen} setDataForModal={setDataForModal} loading={loading}/>
+            <Menu rejectedCampaignsId={[]} items={menuItems} setModalOpen={setModalOpen} setDataForModal={setDataForModal} loading={loading}/>
           </section>
         </main>
       </div>
