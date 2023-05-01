@@ -1,7 +1,7 @@
 import React from "react";
 import ProgressBar from "../ProgressBar";
 
-const Menu = ({ rejectedCampaignsId, items, setModalOpen, setDataForModal, loading }) => {
+const Menu = ({ timeRequestsId, rejectedCampaignsId, items, setModalOpen, setDataForModal, loading }) => {
   console.log(items.days_left)
 
   return (
@@ -17,7 +17,8 @@ const Menu = ({ rejectedCampaignsId, items, setModalOpen, setDataForModal, loadi
                 <img src={campaign_image} alt={campaign_title} className="photo" />
                 <div style={{ width: '30rem' }} className="item-info">
                   <header>
-                    <h4>{campaign_title}</h4>
+                    <h4>{campaign_title} </h4>
+                    <h5 style={{color:'gray'}}>{(timeRequestsId.includes(campaign_id))?' Time Extension Request Pending ... ':null}</h5>
                     {(rejectedCampaignsId.length>0?rejectedCampaignsId.includes(campaign_id):null)?
                   <h4 className="price" style={{color: 'red', textDecoration:'none !important'}}>Rejected Campaign</h4>:
                     <h4 className="price" style={{ color: (days_left ? days_left.days <= 10 : false) && progress !== 100 ? '#DC3545' : null }}>Days Left: {days_left ? days_left.days : null}</h4>

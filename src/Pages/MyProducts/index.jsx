@@ -9,7 +9,8 @@ const allCategories = ["all", "equity", "reward", "profit", "donation"];
 
 const MyProducts = () => {
   const [rejectedCampaignsId, setRejectedCampaignsId]= useState([])
-  const [allRejectedCampaignsMessage, setAllRejectedCampaignsMessage] = useState([])
+  const [timeRequestsId, setTimeRequestsId] = useState([])
+  // const [allRejectedCampaignsMessage, setAllRejectedCampaignsMessage] = useState([])
   const [items, setItems] = useState([])
   const [menuItems, setMenuItems] = useState([]);
   const [activeCategory, setActiveCategory] = useState("");
@@ -38,6 +39,9 @@ const MyProducts = () => {
         response.data.rejectedCampaigns.forEach((element)=>{
           setRejectedCampaignsId([...rejectedCampaignsId, element.campaign_id])
         })
+        response.data.requestForTime.forEach((element)=>{
+          setTimeRequestsId([...timeRequestsId, element.campaign_id])
+        })
         setLoading(false);
       })
       .catch(function (error) {
@@ -58,7 +62,7 @@ const MyProducts = () => {
   };
   return (
     <>
-      {modalOpen && <Modal rejectedCampaignsId={rejectedCampaignsId} setOpenModal={setModalOpen} dataForModal={dataForModal} setDataForModal={setDataForModal} myCampaigns={true}/>}
+      {modalOpen && <Modal timeRequestsId={timeRequestsId} setTimeRequestsId={setTimeRequestsId} rejectedCampaignsId={rejectedCampaignsId} setOpenModal={setModalOpen} dataForModal={dataForModal} setDataForModal={setDataForModal} myCampaigns={true}/>}
         <div className="myProduct-body">
           <main>
             <section className="section">
@@ -72,7 +76,7 @@ const MyProducts = () => {
                 activeCategory={activeCategory}
                 filterItems={filterItems}
               />
-              <Menu rejectedCampaignsId={rejectedCampaignsId} items={menuItems} setModalOpen={setModalOpen} setDataForModal={setDataForModal} loading={loading} />
+              <Menu timeRequestsId={timeRequestsId} rejectedCampaignsId={rejectedCampaignsId} items={menuItems} setModalOpen={setModalOpen} setDataForModal={setDataForModal} loading={loading} />
             </section>
           </main>
         </div>
