@@ -87,7 +87,7 @@ const Login = ({ setJWTAuthentication }) => {
   return (
     <div className="login-signup-container">
       <div className="login-div">
-        {Object.keys(formErrors).length === 0 && isSubmit ? (
+        {/* {Object.keys(formErrors).length === 0 && isSubmit ? (
           <pre
             style={{ color: "white", position: "absolute", left: 10, top: 10 }}
           >
@@ -99,7 +99,7 @@ const Login = ({ setJWTAuthentication }) => {
           >
             {JSON.stringify(formValues, undefined, 2)}
           </pre>
-        )}
+        )} */}
         <div className="login-logo"></div>
         <div className="login-title">Log In</div>
         <form onSubmit={handleSubmit}>
