@@ -73,7 +73,7 @@ const ForgetPassword = () => {
   return (
     <div className="login-signup-container">
       <div className="login-div" style={{ height: 388 }}>
-        {Object.keys(formErrors).length === 0 && isSubmit ? (
+        {/* {Object.keys(formErrors).length === 0 && isSubmit ? (
           <pre
             style={{ color: "white", position: "absolute", left: 10, top: 10 }}
           >
@@ -85,7 +85,7 @@ const ForgetPassword = () => {
           >
             {JSON.stringify(formValues, undefined, 2)}
           </pre>
-        )}
+        )} */}
         <div className="login-title" style={{ padding: 24 }}>
           Reset Password
         </div>

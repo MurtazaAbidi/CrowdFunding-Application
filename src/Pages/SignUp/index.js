@@ -149,20 +149,22 @@ const SignUp = () => {
     // <div className = "login-div" style={{paddingTop:10, position:'absolute', top:'1rem', left:'36%'}}>
     <div className="login-signup-container">
       <div className="login-div" style={{ paddingTop: 10 }}>
-        {Object.keys(formErrors).length === 0 && isSubmit ? (
-          <pre
-            style={{ color: "white", position: "absolute", left: 10, top: 10 }}
-          >
-            {/* Sign Up Done */}
-            correct Validations
-          </pre>
-        ) : (
-          <pre
-            style={{ color: "white", position: "absolute", left: 10, top: 10 }}
-          >
-            {JSON.stringify(formValues, undefined, 2)}
-          </pre>
-        )}
+        {
+        // Object.keys(formErrors).length === 0 && isSubmit ? (
+        //   <pre
+        //     style={{ color: "white", position: "absolute", left: 10, top: 10 }}
+        //   >
+        //     {/* Sign Up Done */}
+        //     correct Validations
+        //   </pre>
+        // ) : (
+        //   <pre
+        //     style={{ color: "white", position: "absolute", left: 10, top: 10 }}
+        //   >
+        //     {JSON.stringify(formValues, undefined, 2)}
+        //   </pre>
+        // )
+        }
         <div className="login-title" style={{padding:5}}>
           Sign Up
         </div>
