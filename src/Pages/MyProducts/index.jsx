@@ -40,7 +40,9 @@ const MyProducts = () => {
           setRejectedCampaignsId([...rejectedCampaignsId, element.campaign_id])
         })
         response.data.requestForTime.forEach((element)=>{
-          setTimeRequestsId([...timeRequestsId, element.campaign_id])
+          if (element.resolved===false){
+            setTimeRequestsId([...timeRequestsId, element.campaign_id])
+          }
         })
         setLoading(false);
       })

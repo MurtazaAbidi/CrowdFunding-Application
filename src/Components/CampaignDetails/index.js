@@ -113,7 +113,7 @@ function Modal({ timeRequestsId, setTimeRequestsId, rejectedCampaignsId, setOpen
             <button onClick={() => { setUpdateFlag(true) }}>MileStones</button>
             <button style={{ backgroundColor: 'white', color: ' cornflowerblue', border: '1px solid' }} onClick={() => { setInvestorFlag(true) }}>Investors</button>
             <button style={{ backgroundColor: 'white', color: ' cornflowerblue', border: '1px solid' }} onClick={() => { setCommentsFlag(true) }}>Comments</button>
-            { !(rejectedCampaignsId.includes(dataForModal.campaign_id)) && !(timeRequestsId.includes(dataForModal.campaign_id)) && dataForModal.days_left.days <= 10 && dataForModal.progress !== 100 && myCampaigns === true ? <><button onClick={() => { handleTimeExtendRequest(dataForModal.campaign_id) }} style={{ width: '17rem', backgroundColor: 'crimson' }}>Time-Extend Request</button></> : null}
+            { dataForModal.campaign_status!==false && !(rejectedCampaignsId.includes(dataForModal.campaign_id)) && !(timeRequestsId.includes(dataForModal.campaign_id)) && dataForModal.days_left.days <= 10 && dataForModal.progress !== 100 && myCampaigns === true ? <><button onClick={() => { handleTimeExtendRequest(dataForModal.campaign_id) }} style={{ width: '17rem', backgroundColor: 'crimson' }}>Time-Extend Request</button></> : null}
           </>
           ) : (invertorsFlag === true || updateFlag === true) ?
             <button style={{

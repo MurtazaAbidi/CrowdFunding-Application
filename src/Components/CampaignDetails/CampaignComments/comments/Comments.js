@@ -101,9 +101,9 @@ const Comments = ({ currentUserId, dataForModal, myCampaigns }) => {
 
   return (
     <div className="comments">
-      <div className="comment-form-title">{myCampaigns ? 'Write comment:' : 'Comments'}</div>
+      <div className="comment-form-title">{myCampaigns && dataForModal.campaign_status===true ? 'Write comment:' : 'Comments'}</div>
         
-      {myCampaigns ?
+      {myCampaigns && dataForModal.campaign_status===true ?
           <CommentForm submitLabel="Write" handleSubmit={addComment} />
           : null}
 
