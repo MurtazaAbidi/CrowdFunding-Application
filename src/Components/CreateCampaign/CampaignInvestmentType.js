@@ -67,6 +67,31 @@ const CampaignInvestmentType = (props) => {
                 />
               )}
             />
+                        <div
+              style={{
+                paddingLeft: "1rem",
+                marginTop: "1rem",
+                fontWeight: 600,
+              }}
+            >
+              Reward Description:
+            </div>
+            <Controller
+              control={control}
+              name="rewardDescription"
+              render={({ field }) => (
+                <TextField
+                  id="rewardDescription"
+                  label="Reward Description"
+                  variant="outlined"
+                  placeholder="Enter the Reward Description"
+                  fullWidth
+                  margin="normal"
+                  required
+                  {...field}
+                />
+              )}
+            />
           </>
         ) : campType === "equity" ? (
           <>
@@ -117,6 +142,31 @@ const CampaignInvestmentType = (props) => {
                   fullWidth
                   margin="normal"
                   type="number"
+                  required
+                  {...field}
+                />
+              )}
+            />
+                        <div
+              style={{
+                paddingLeft: "1rem",
+                marginTop: "1rem",
+                fontWeight: 600,
+              }}
+            >
+              Share Description:
+            </div>
+            <Controller
+              control={control}
+              name="shareDescription"
+              render={({ field }) => (
+                <TextField
+                  id="shareDescription"
+                  label="Share Description"
+                  variant="outlined"
+                  placeholder="Enter the Share Description"
+                  fullWidth
+                  margin="normal"
                   required
                   {...field}
                 />
